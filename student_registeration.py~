@@ -2,8 +2,7 @@
 #various input fields with wrong values as well as leave blank some mandatory
 #fields, It will generate various error messages, On submitting the form, we see
 #a message " Sorry, we could not save your data. Please fix the errors mentioned
-#below." and various error messages on the input fields.In the function
-#Test_error_messages_and_register_with_correct_inputs(), we check various error
+#below." and various error messages on the input fields.In the function #Test_error_messages_and_register_with_correct_inputs(), we check various error
 #messages and enter correct values to successfully submit our registration form.
 
 import unittest
