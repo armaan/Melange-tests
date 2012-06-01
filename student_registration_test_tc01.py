@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from melange_functional_actions import *
 
 class StudentRegistrationTest(unittest.TestCase, FunctionalTests):
