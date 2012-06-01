@@ -19,74 +19,102 @@ objId = {}
 objVal = {}
 Browser = webdriver.Firefox()
 
-class funcTests:
-  
-  
-  def get_parameters(self, name_of_workbook):
+class funcTests:  
+  """Contains actions which will be used in writing Test scripts
+  """
+
+  def getParameters(self, name_of_workbook, sheetname):
+    """Read Test data from excel sheets
+
+    Args:
+      name_of_workbook: workbook from which the test data will be imported.
+      sheetname: particular sheet whose contents will be imported.
+    """
     workbook = xlrd.open_workbook(name_of_workbook)
     #Get a sheet by name        
-    sheet2 = workbook.sheet_by_name('Objects')                
+    sheet = workbook.sheet_by_name(sheetname)                
     #Pulling all the Xpath values from spreadsheet
-    for x in range(1,sheet2.nrows):
+    for x in range(1,sheet.nrows):
       for y in range(0,1):
-        obj = sheet2.cell_value(x,y)
-        Id = sheet2.cell_value(x,y+1)
-        value = sheet2.cell_value(x,y+2)
+        obj = sheet.cell_value(x,y)
+        Id = sheet.cell_value(x,y+1)
+        value = sheet.cell_value(x,y+2)
         global objId
         global objVal
         objId[obj] = Id
         objVal[obj] = value
 
   def wait(self, sec):
+    """ delay the execution of script for specified number of seconds.
+
+    Args:
+      sec: Number of seconds for which the script should wait.
+    """
     print "waiting for page to load for %s seconds " % sec
     time.sleep(sec)
 
-  def clear_field_and_enter_new_data(self, msg, path, fieldpath, value):
+  def clearFieldAndEnterNewData(self, msg, path, fieldpath, value):
+
     Browser = self.Browser
     self.assertIn(msg, Browser.find_element_by_xpath(path).text)
     Browser.find_element_by_xpath(fieldpath).clear()
     Browser.find_element_by_xpath(fieldpath).send_keys(value) 
 
-  def write_text_field(self, t = "", element = ""):
-    if t == "id":
+  def writeTextField(self, id_type = "", element = ""):
+    """Write text field in a form.
+
+    Args:
+      id_type: Type of identification used to uniquely identify an element.
+      element: Particular text field which will be written.
+    """
+    if id_type == "id":
       Browser.find_element_by_id(objId[element]).send_keys(objVal[element])
-    elif t == "xpath":
+    elif id_type == "xpath":
       Browser.find_element_by_xpath(objId[element]).send_keys(objVal[element])
     else:
       print "Error"
 
+  def toggleCheckBox(self, chk_box = ""):
+    """ Toggle a check box
 
-  def toggle_checkbox(self, element = ""):
-    Browser.find_element_by_xpath(objId[element]).click()
+    Args:
+      chk_box: particular check box which will be selected/not selected.
+    """
+    Browser.find_element_by_xpath(objId[chk_box]).click()
 
-  def set_dropdown_list(self, element = ""):
-    selection = Browser.find_element_by_xpath(objId[element])
+  def setDropdownList(self, select_opt = ""):
+    """ Selects one option from the drop down list.
+
+    Args:
+      select_opt: The option which should be selected from the drop down list.       
+    """
+    selection = Browser.find_element_by_xpath(objId[select_opt])
     all_options = selection.find_elements_by_tag_name("option")
     for option in all_options:
-      if (option.get_attribute("value") == objVal[element]):
+      if (option.get_attribute("value") == objVal[select_opt]):
         option.click()
 
-  def wait_and_check_if_displayed(self, sec, elem = ''):
+  def waitAndCheckIfDisplayed(self, sec, elem_displayed = ""):
     while True:
       try:
         funcTest.wait(sec)
-        Browser.find_element_by_xpath(objId[elem]).is_displayed()     
+        Browser.find_element_by_xpath(objId[elem_displayed]).is_displayed()     
         break
       except NoSuchElementException as e:
-        print " The element with id %s cannot be located" %elem
+        print " The element with id %s cannot be located" %elem_displayed
         break
 
-  def wait_and_click(self, sec, elem = ''):
+  def waitAndClick(self, sec, elem_click = ""):
     while True:
       try:
         funcTest.wait(sec)
-        Browser.find_element_by_xpath(objId[elem]).click()     
+        Browser.find_element_by_xpath(objId[elem_click]).click()     
         break
       except NoSuchElementException as e:
-        print " The element with id %s cannot be located" %elem
+        print " The element with id %s cannot be located" %elem_click
         break
 
-  def wait_and_enter_text(self, sec, elem = ''):
+  def waitAndEnterText(self, sec, elem = ""):
     while True:
       try:
         funcTest.wait(sec)
@@ -96,42 +124,42 @@ class funcTests:
         print " The element with id %s cannot be located" %elem
         break
 
-  def wait_and_clear_field(self, sec, elem = ''):
+  def waitAndClearField(self, sec, clear_elem = ""):
     while True:
       try:
         funcTest.wait(sec)
-        Browser.find_element_by_xpath(objId[elem]).clear()     
+        Browser.find_element_by_xpath(objId[clear_elem]).clear()     
         break
       except NoSuchElementException as e:
-        print " The element with id %s cannot be located" %elem
+        print " The element with id %s cannot be located" %clear_elem
         break  
  
-  def click_on(self, element = ""):
+  def clickOn(self, click_elem = ""):
     Browser.find_element_by_xpath(objId[element]).click()
 
-  def assert_error(self, msg):
+  def assertError(self, msg):
     print msg
     raise AssertionError(msg)
 
-  def assert_link(self, element = ""):
+  def assertLink(self, link_text = ""):
     try:
-      link = Browser.find_element_by_link_text(element)      
+      link = Browser.find_element_by_link_text(link_text)      
     except NoSuchElementException as e :
-      msg = "The text %s is not part of a Link" % element
-      funcTest.assert_error(msg)
+      msg = "The text %s is not part of a Link" %link_text
+      funcTest.assertError(msg)
     return link
 
-  def assert_text(self, elem = ""):
-    txt = Browser.find_element_by_xpath(objId[elem]).text
+  def assertText(self, text_elem = ""):
+    txt = Browser.find_element_by_xpath(objId[text_elem]).text
     if txt is None:
-        msg = "Element %s has no text %s " % (elem, txt)
-        funcTest.assert_error(msg)
+        msg = "Element %s has no text %s " % (text_elem, txt)
+        funcTest.assertError(msg)
     if txt != elem:
-        msg = "Element text should be %s.  It is %s." % (elem, txt)
-        funcTest.assert_error(msg)
+        msg = "Element text should be %s.  It is %s." % (text_elem, txt)
+        funcTest.assertError(msg)
     return
 
-  def take_screenshot(self):
+  def takeScreenshot(self):
     Browser.save_screenshot("Melange.png")
   
   def setUp(self):
