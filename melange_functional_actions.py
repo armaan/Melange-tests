@@ -211,7 +211,7 @@ class FunctionalTests(object):
     Browser.close()
 
   def login(self):
-    """ Login to the melange """
+    """ Logs in to the melange """
     functest.waitAndClearField(5, "Login_email")
     functest.writeTextField("xpath", "Login_email")
     functest.clickOn("Sign_in_button")
