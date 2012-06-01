@@ -19,7 +19,7 @@ objId = {}
 objVal = {}
 Browser = webdriver.Firefox()
 
-class funcTests:  
+class FunctionalTests(object):  
   """Contains actions which will be used in writing Test scripts
   """
 
@@ -82,7 +82,7 @@ class funcTests:
     """
     Browser.find_element_by_xpath(objId[chk_box]).click()
 
-  def setDropdownList(self, select_opt = ""):
+  def setDropDownList(self, select_opt = ""):
     """ Selects one option from the drop down list.
 
     Args:
@@ -95,9 +95,15 @@ class funcTests:
         option.click()
 
   def waitAndCheckIfDisplayed(self, sec, elem_displayed = ""):
+    """ wait and check if a particular element is displayed.
+
+    Args:
+      sec: Number of seconds script should wait.
+      elem_displayed: The element which we want to check if it displayed or not.
+    """
     while True:
       try:
-        funcTest.wait(sec)
+        functest.wait(sec)
         Browser.find_element_by_xpath(objId[elem_displayed]).is_displayed()     
         break
       except NoSuchElementException as e:
@@ -105,9 +111,15 @@ class funcTests:
         break
 
   def waitAndClick(self, sec, elem_click = ""):
+    """ wait and click on a particular element.
+
+    Args:
+      sec: Number of seconds script should wait.
+      elem_click: The element which we want to click.
+    """
     while True:
       try:
-        funcTest.wait(sec)
+        functest.wait(sec)
         Browser.find_element_by_xpath(objId[elem_click]).click()     
         break
       except NoSuchElementException as e:
@@ -115,9 +127,15 @@ class funcTests:
         break
 
   def waitAndEnterText(self, sec, elem = ""):
+    """ wait and enter text in a particular field.
+
+    Args:
+      sec: Number of seconds script should wait.
+      elem: The field in which we we want to enter some text.
+    """
     while True:
       try:
-        funcTest.wait(sec)
+        functest.wait(sec)
         Browser.find_element_by_xpath(objId[elem]).send_keys(objVal[elem])     
         break
       except NoSuchElementException as e:
@@ -125,9 +143,15 @@ class funcTests:
         break
 
   def waitAndClearField(self, sec, clear_elem = ""):
+    """ wait and clear a particular field.
+
+    Args:
+      sec: Number of seconds script should wait.
+      clear_elem: The field which we want to clear.
+    """
     while True:
       try:
-        funcTest.wait(sec)
+        functest.wait(sec)
         Browser.find_element_by_xpath(objId[clear_elem]).clear()     
         break
       except NoSuchElementException as e:
@@ -135,45 +159,62 @@ class funcTests:
         break  
  
   def clickOn(self, click_elem = ""):
-    Browser.find_element_by_xpath(objId[element]).click()
+    """ Click on the specified element.
+
+    Args:
+      click_elem: The element which will be clicked.
+    """
+    Browser.find_element_by_xpath(objId[click_elem]).click()
 
   def assertError(self, msg):
+    """Print the message and raise assertion error."""
     print msg
     raise AssertionError(msg)
 
   def assertLink(self, link_text = ""):
+    """Assert if a link is there.
+
+    Args:
+      link_text: The link which will be tested.  
+    """
     try:
       link = Browser.find_element_by_link_text(link_text)      
     except NoSuchElementException as e :
       msg = "The text %s is not part of a Link" %link_text
-      funcTest.assertError(msg)
+      functest.assertError(msg)
     return link
 
   def assertText(self, text_elem = ""):
+    """Assert a particular text.
+
+    Args:
+      text_elem: The text which will be checked. 
+    """
     txt = Browser.find_element_by_xpath(objId[text_elem]).text
     if txt is None:
         msg = "Element %s has no text %s " % (text_elem, txt)
-        funcTest.assertError(msg)
-    if txt != elem:
+        functest.assertError(msg)
+    if txt != text_elem:
         msg = "Element text should be %s.  It is %s." % (text_elem, txt)
-        funcTest.assertError(msg)
+        functest.assertError(msg)
     return
 
   def takeScreenshot(self):
+    """Take screenshot"""
     Browser.save_screenshot("Melange.png")
   
   def setUp(self):
     self.Browser = webdriver.Firefox()
-    #Browser = self.Browser
 
   def tearDown(self):
-    funcTest.take_screenshot()
+    functest.takeScreenshot()
     Browser.close()
 
   def login(self):
-    funcTest.wait_and_clear_field(5, "Login_email")
-    funcTest.write_text_field("xpath", "Login_email")
-    funcTest.click_on("Sign_in_button")
+    """ Login to the melange """
+    functest.waitAndClearField(5, "Login_email")
+    functest.writeTextField("xpath", "Login_email")
+    functest.clickOn("Sign_in_button")
     
-funcTest = funcTests()
+functest = FunctionalTests()
 
