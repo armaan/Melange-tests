@@ -121,7 +121,7 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTests):
     #Fill the text area
     functest.writeTextField("xpath", "How_did_you_hear_about_gsoc")
 
-    #Set the checkbox for Notification to new comments
+    #Unset the checkbox for Notification to new comments
     functest.toggleCheckBox("Notify_to_new_public_comments")
  
     #Enter School Name
