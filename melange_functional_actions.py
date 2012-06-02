@@ -45,20 +45,13 @@ class FunctionalTests(object):
         objVal[obj] = value
 
   def wait(self, sec):
-    """ delay the execution of script for specified number of seconds.
+    """ Delay the execution of script for specified number of seconds.
 
     Args:
       sec: Number of seconds for which the script should wait.
     """
     print "waiting for page to load for %s seconds " % sec
     time.sleep(sec)
-
-  def clearFieldAndEnterNewData(self, msg, path, fieldpath, value):
-
-    Browser = self.Browser
-    self.assertIn(msg, Browser.find_element_by_xpath(path).text)
-    Browser.find_element_by_xpath(fieldpath).clear()
-    Browser.find_element_by_xpath(fieldpath).send_keys(value) 
 
   def writeTextField(self, id_type = "", element = ""):
     """Write text field in a form.
@@ -110,6 +103,25 @@ class FunctionalTests(object):
         print " The element with id %s cannot be located" %elem_displayed
         break
 
+  def clearFieldAndEnterData(self, error_elem , elem = ""):
+    """Assert the error message , clear the input field and enter a new value
+
+    Args:
+      erro_elem: It is the element which is showing error message.
+      elem: The correct value for the input field.
+                 
+    """
+    error_msg = Browser.find_element_by_xpath(objId[error_elem]).text
+    if error_msg is None:
+        msg = "Element %s has no text %s " % (error_elem, error_msg)
+        functest.assertError(msg)
+    if error_msg not in objVal[error_elem]:
+        msg = "Element text should be %s.  It is %s." % (objVal[error_elem], error_msg)
+        functest.assertError(msg)
+    functest.waitAndClearField(1, elem)
+    functest.writeTextField("xpath", elem)
+    return
+
   def waitAndClick(self, sec, elem_click = ""):
     """ wait and click on a particular element.
 
@@ -141,6 +153,7 @@ class FunctionalTests(object):
       except NoSuchElementException as e:
         print " The element with id %s cannot be located" %elem
         break
+
 
   def waitAndClearField(self, sec, clear_elem = ""):
     """ wait and clear a particular field.

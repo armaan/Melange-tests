@@ -7,7 +7,7 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTests):
     super(StudentRegistrationTest, self).setUp()
     functest.getParameters('/home/syed/Desktop/testdata_melange.xls', 'Objects')
     
-  def test_for_trying_to_register_with_wrong_inputs(self):
+  def testForTryingToRegisterAsAStudent(self):
  
     #Test Url, Change it according to your local dev environment
     Browser.get(objId['Url'])
