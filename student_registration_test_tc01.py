@@ -22,8 +22,7 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTests):
     Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
   
     #Click on Register
-    functest.waitAndClick(3, 'Register_Button')
-    
+    functest.waitAndClick(3, 'Register_Button')    
     functest.wait(2)
   
     #Test env asks for email id, clear the field, enter email and click on login
@@ -115,7 +114,7 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTests):
     #Traverse through the list and select T-shirt size "XL"
     functest.setDropDownList("T_shirt_size")
 
-    #Select Gender as male   
+    #Select Gender as female   
     functest.setDropDownList("Gender")
 
     #Fill the text area
