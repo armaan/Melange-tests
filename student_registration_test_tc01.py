@@ -146,7 +146,6 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTests):
     functest.clickOn("Submit_button")
     
 
-
   def tearDown(self):
     functest.tearDown()
 
