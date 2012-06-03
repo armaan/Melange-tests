@@ -111,7 +111,7 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTests):
     #Traverse through the list and select T-shirt Style
     functest.setDropDownList("T_shirt_style")    
 
-    #Traverse through the list and select T-shirt size "XL"
+    #Traverse through the list and select a T-shirt size
     functest.setDropDownList("T_shirt_size")
 
     #Select Gender as female   
