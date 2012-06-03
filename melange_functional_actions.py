@@ -16,7 +16,7 @@ from selenium.common.exceptions import (
     InvalidElementStateException, WebDriverException,
     NoSuchWindowException, NoSuchFrameException, TimeoutException)
 
-"""Base Class for Melange Functional Tests. """
+"""Base Class for all the Melange Functional Tests. """
 
 class FunctionalTests(object):  
   """Contains actions which will be used in writing Test scripts
