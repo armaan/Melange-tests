@@ -3,7 +3,6 @@
 import xlrd
 
 import unittest2 as unittest
-from unittest2 import SkipTest
 import random
 import string
 import time
