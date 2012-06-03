@@ -239,12 +239,8 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTests):
     functest.wait(5)
     
     if functest.waitAndCheckIfDisplayed(5, "Already_registered") is True:
-      N=5
-      username = "Lucy"+''.join(random.choice(string.ascii_lowercase\
-                                             + string.digits) for x in range(N))
-      Browser.find_element_by_xpath("//*[@id='link_id']").clear()
-      Browser.find_element_by_xpath("//*[@id='link_id']").send_keys(username)
-      Browser.find_element_by_xpath("//*[@id='form-register-submit']").click() 
+      functest.fillRandomValue("Correct_username")
+      functest.clickOn("Submit_button") 
 
   def tearDown(self):
     functest.tearDown()
