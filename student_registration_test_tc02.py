@@ -238,6 +238,9 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTests):
     functest.clickOn("Submit_button")
     functest.wait(5)
     
+    """ Check if a student has already registered with this user name.
+        if true change the user name and submit the form again.
+    """
     if functest.waitAndCheckIfDisplayed(5, "Already_registered") is True:
       functest.fillRandomValue("Correct_username")
       functest.clickOn("Submit_button") 
