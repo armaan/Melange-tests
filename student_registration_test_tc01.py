@@ -78,7 +78,7 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTests):
     functest.setDropDownList("Country")
     functest.wait(2)
 
-    #Enter Postal code
+    #Enter a Postal code
     functest.writeTextField("xpath", "Postal_code")    
 
     #Enter phone nuumber
