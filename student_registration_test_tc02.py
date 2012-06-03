@@ -8,9 +8,11 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTests):
     functest.getParameters('/home/syed/Desktop/testdata_melange.xls', 'TC02')
     
   def testForTryingToRegisterWithWrongInputs(self):
+    
+    Browser = self.Browser
  
     #Test Url, Change it according to your local dev environment
-    Browser.get(objId['Url'])
+    Browser.get(functest.obj_id['Url'])
 
     #Check for the correct browser title
     self.assertIn("Google Summer of Code", Browser.title)

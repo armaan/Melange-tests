@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+
 from melange_functional_actions import *
 
 class StudentRegistrationTest(unittest.TestCase, FunctionalTests):
@@ -8,14 +9,16 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTests):
     functest.getParameters('/home/syed/Desktop/testdata_melange.xls', 'TC01')
     
   def testForTryingToRegisterAsAStudent(self):
- 
-    #Test Url, Change it according to your local dev environment
-    Browser.get(objId['Url'])
 
-    #Check for the correct browser title
+    Browser = self.Browser
+
+    #Test Url, Change it according to your local dev environment.
+    Browser.get(functest.obj_id['Url'])
+
+    #Check for the correct browser title.
     self.assertIn("Google Summer of Code", Browser.title)
 
-    #Check if "How Google Summer of Code Works" is present.
+    #Check if "How Google Summer of Code Works" text is present on home page.
     functest.assertText("How Google Summer of Code Works")
   
     #Scroll down
@@ -25,10 +28,10 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTests):
     functest.waitAndClick(3, 'Register_Button')    
     functest.wait(2)
   
-    #Test env asks for email id, clear the field, enter email and click on login
+    #Clear the field, enter email id and click on login
     functest.login()
 
-    #Wait for the page load completely, then fill the user name field
+    #Wait for few seconds to let the page load then fill the user name field.
     functest.waitAndEnterText(5, 'Username')
     
     #Fill the public name field  
@@ -71,7 +74,7 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTests):
     #Enter State
     functest.writeTextField("id", "State")
 
-    #Traverse through all the country names and select India From the List
+    #Traverse through all the country names and select a country From the List
     functest.setDropDownList("Country")
     functest.wait(2)
 
@@ -145,7 +148,7 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTests):
     functest.clickOn("Submit_button")
     
     """ Check if a student has already registered with this user name.
-        if true change the user name and submit the form again.
+        if true then change the user name and submit the form again.
     """
     if functest.waitAndCheckIfDisplayed(5, "Already_registered") is True:
       functest.fillRandomValue("Username")
