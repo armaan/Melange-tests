@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import xlrd
 
 import unittest2 as unittest
@@ -18,6 +20,8 @@ from selenium.common.exceptions import (
 objId = {}
 objVal = {}
 Browser = webdriver.Firefox()
+
+"""Base Class for Melange Functional Tests. """
 
 class FunctionalTests(object):  
   """Contains actions which will be used in writing Test scripts
