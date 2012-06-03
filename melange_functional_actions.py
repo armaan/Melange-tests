@@ -244,6 +244,7 @@ class FunctionalTests(object):
     self.Browser = webdriver.Firefox()
 
   def tearDown(self):
+    functest.wait(2)
     functest.takeScreenshot()
     Browser.close()
 
