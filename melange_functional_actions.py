@@ -97,11 +97,13 @@ class FunctionalTests(object):
     while True:
       try:
         functest.wait(sec)
-        Browser.find_element_by_xpath(objId[elem_displayed]).is_displayed()     
+        Browser.find_element_by_xpath(objId[elem_displayed]).is_displayed()
+        return True     
         break
       except NoSuchElementException as e:
         print " The element with id %s cannot be located" %elem_displayed
         break
+    
 
   def clearFieldAndEnterData(self, error_elem , elem = ""):
     """Assert the error message , clear the input field and enter a new value
@@ -111,13 +113,7 @@ class FunctionalTests(object):
       elem: The correct value for the input field.
                  
     """
-    error_msg = Browser.find_element_by_xpath(objId[error_elem]).text
-    if error_msg is None:
-        msg = "Element %s has no text %s " % (error_elem, error_msg)
-        functest.assertError(msg)
-    if error_msg not in objVal[error_elem]:
-        msg = "Element text should be %s.  It is %s." % (objVal[error_elem], error_msg)
-        functest.assertError(msg)
+    functest.assertTextIn(error_elem)
     functest.waitAndClearField(1, elem)
     functest.writeTextField("xpath", elem)
     return
@@ -207,10 +203,38 @@ class FunctionalTests(object):
     if txt is None:
         msg = "Element %s has no text %s " % (text_elem, txt)
         functest.assertError(msg)
-    if txt != text_elem:
-        msg = "Element text should be %s.  It is %s." % (text_elem, txt)
+    if txt != objVal[text_elem]:
+        msg = "Element text should be %s.  It is %s." % (objVal[text_elem], txt)
         functest.assertError(msg)
     return
+
+  def assertMessageAndEnterText(self, error_elem = "", input_field = ""):
+    """Assert a message and enter value in the text field.
+
+    Args:
+      error_elem : the error message from the application which will be checked.
+      input_field : Input box in which a value will be entered.
+    """
+    functest.assertText(error_elem)
+    functest.writeTextField("xpath", input_field)
+    return
+
+  def assertTextIn(self, error_elem):
+    error_msg = Browser.find_element_by_xpath(objId[error_elem]).text
+    if error_msg is None:
+        msg = "Element %s has no text %s " % (error_elem, error_msg)
+        functest.assertError(msg)
+    if error_msg not in objVal[error_elem]:
+        msg = "Element text should be %s.  It is %s." % (objVal[error_elem], error_msg)
+        functest.assertError(msg)
+        return
+
+  def fillRandomValue(self, elem = ""):
+    N=5
+    val = objVal[elem] + ''.join(random.choice(string.ascii_lowercase\
+                                             + string.digits) for x in range(N))
+    functest.waitAndClearField(1, elem)
+    Browser.find_element_by_xpath(objId[elem]).send_keys(val)
 
   def takeScreenshot(self):
     """Take screenshot"""

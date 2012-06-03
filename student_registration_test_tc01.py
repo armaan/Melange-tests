@@ -5,7 +5,7 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTests):
 
   def setUp(self):
     super(StudentRegistrationTest, self).setUp()
-    functest.getParameters('/home/syed/Desktop/testdata_melange.xls', 'Objects')
+    functest.getParameters('/home/syed/Desktop/testdata_melange.xls', 'TC01')
     
   def testForTryingToRegisterAsAStudent(self):
  
@@ -143,6 +143,13 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTests):
  
     #Submit
     functest.clickOn("Submit_button")
+    
+    """ Check if a student has already registered with this user name.
+        if true change the user name and submit the form again.
+    """
+    if functest.waitAndCheckIfDisplayed(5, "Already_registered") is True:
+      functest.fillRandomValue("Username")
+      functest.clickOn("Submit_button") 
     
 
   def tearDown(self):
