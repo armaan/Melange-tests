@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from melange_functional_actions import *
-
+""" Test for trying to register as a student on melange gsoc """
 class StudentRegistrationTest(unittest.TestCase, FunctionalTests):
 
   def setUp(self):
