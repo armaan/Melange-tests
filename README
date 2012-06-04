@@ -1,3 +1,4 @@
 These are the functional tests for Melange-SoC.
-Functional testing of melange is done by using selenium and unittest2 frameworks
+Functional testing of melange is done by using selenium webdriver and python 
+unittest2 framework.
 
