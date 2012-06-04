@@ -184,7 +184,11 @@ class FunctionalTests(object):
     functest.Browser.find_element_by_xpath(functest.obj_id[click_elem]).click()
 
   def assertError(self, msg):
-    """Print the message and raise assertion error."""
+    """Print the message and raise assertion error.
+
+    Args:
+      msg: The message which should be printed.  
+    """
     print msg
     raise AssertionError(msg)
 
