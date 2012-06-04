@@ -8,7 +8,7 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTests):
     super(StudentRegistrationTest, self).setUp()
     functest.getParameters('/home/syed/Desktop/testdata_melange.xls', 'TC03')
     
-  def testForTryingToRegisterWithEmptyFields(self):
+  def test_ForTryingToRegisterWithEmptyFields(self):
  
     Browser = self.Browser
     #Test Url, Change it according to your local dev environment
