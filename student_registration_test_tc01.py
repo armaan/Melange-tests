@@ -8,7 +8,7 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTests):
     super(StudentRegistrationTest, self).setUp()
     functest.getParameters('/home/syed/Desktop/testdata_melange.xls', 'TC01')
     
-  def testForTryingToRegisterAsAStudent(self):
+  def test_ForTryingToRegisterAsAStudent(self):
 
     Browser = self.Browser
 
