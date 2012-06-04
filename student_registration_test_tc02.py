@@ -7,7 +7,7 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTests):
     super(StudentRegistrationTest, self).setUp()
     functest.getParameters('/home/syed/Desktop/testdata_melange.xls', 'TC02')
     
-  def testForTryingToRegisterWithWrongInputs(self):
+  def test_ForTryingToRegisterWithWrongInputs(self):
     
     Browser = self.Browser
  
