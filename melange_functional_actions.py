@@ -52,6 +52,7 @@ class FunctionalTests(object):
       name_of_workbook: workbook from which the test data will be imported.
       sheetname: particular sheet whose contents will be imported.
     """
+
     try:
       workbook = xlrd.open_workbook(name_of_workbook)
     except IOError as e:
@@ -76,6 +77,7 @@ class FunctionalTests(object):
     Args:
       sec: Number of seconds for which the script should wait.
     """
+
     print "waiting for page to load for %s seconds " % sec
     time.sleep(sec)
     return

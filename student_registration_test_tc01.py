@@ -1,4 +1,22 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2.5
+#
+# Copyright 2010 the Melange authors.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+""" Student registration: A student registers himself/herself by entering all
+                          correct values in the registration form.
+"""
 
 from melange_functional_actions import *
 
@@ -12,7 +30,7 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTests):
 
     Browser = self.Browser
 
-    #Test Url, Change it according to your local dev environment.
+    #Go to url where melange is hosted.
     Browser.get(functest.obj_id['Url'])
 
     #Check for the correct browser title.
@@ -21,130 +39,130 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTests):
     #Check if "How Google Summer of Code Works" text is present on home page.
     functest.assertText("How Google Summer of Code Works")
   
-    #Scroll down
+    #Scroll down.
     Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
   
-    #Click on Register
-    functest.waitAndClick(3, 'Register_Button')    
+    #Click on Register.
+    functest.waitAndClick(3, "Register_Button")    
     functest.wait(2)
   
-    #Clear the field, enter email id and click on login
+    #Clear the field, enter email id and click on login.
     functest.login()
 
     #Wait for few seconds to let the page load then fill the user name field.
-    functest.waitAndEnterText(5, 'Username')
+    functest.waitAndEnterText(5, "Username")
     
-    #Fill the public name field  
+    #Fill the public name field.  
     functest.writeTextField("id", "Public_name")
     Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
-    #Fill IM network field
+    #Fill IM network field.
     functest.writeTextField("id", "Im_network")
 
-    #Fill IM handle field
+    #Fill IM handle field.
     functest.writeTextField("id", "Im_handle")
   
-    #Enter a valid home page address
+    #Enter a valid home page address.
     functest.writeTextField("id", "Home_page_url")
   
-    #Enter a valid blog address
+    #Enter a valid blog address.
     functest.writeTextField("id", "Blog_url")
   
-    #Enter photo url
+    #Enter photo url.
     functest.writeTextField("id", "Thumbnail_photo_url")
 
-    #Enter Given Name
+    #Enter first name.
     functest.writeTextField("id", "First_name")
 
-    #Enter Surname
+    #Enter Surname.
     functest.writeTextField("id", "Last_name")
 
-    #Enter Email
+    #Enter Email.
     functest.writeTextField("id", "Email")
 
-    #Enter Resedential Street Adress
+    #Enter Resedential Street Adress.
     functest.writeTextField("id", "Res_street")
 
-    #Enter Extra Residential Adress
+    #Enter Extra Residential Adress.
     functest.writeTextField("id", "Res_street_extra")
 
-    #Enter the City
+    #Enter the City.
     functest.writeTextField("id", "City")
 
     #Enter State
     functest.writeTextField("id", "State")
 
-    #Traverse through all the country names and select a country From the List
+    #Traverse through all the country names and select a country From the List.
     functest.setDropDownList("Country")
     functest.wait(2)
 
-    #Enter a Postal code
+    #Enter a Postal code.
     functest.writeTextField("xpath", "Postal_code")    
 
-    #Enter phone number
+    #Enter phone number.
     functest.writeTextField("xpath", "Phone")
     
-    #Select publish location
+    #Select publish location.
     functest.toggleCheckBox("Publish_my_location")
 
     #Enter Full recipient name  
     functest.writeTextField("xpath", "Full_recepient_name")
 
-    #Enter Shipping Street Adress
+    #Enter Shipping Street Adress.
     functest.writeTextField("xpath", "Shipping_street")
 
-    #Enter Extra Shipping Street Adress
+    #Enter Extra Shipping Street Adress.
     functest.writeTextField("xpath", "Shipping_street_extra")
 
-    #Enter the city name for shipment
+    #Enter the city name for shipment.
     functest.writeTextField("xpath", "Shipping_city")
 
-    #Enter State
+    #Enter State.
     functest.writeTextField("xpath", "Shipping_state")
   
-    #Traverse through all the country names and select a country From the List
+    #Traverse through all the country names and select a country From the List.
     functest.setDropDownList("Shipping_country")    
 
-    #Enter postal code
+    #Enter postal code.
     functest.writeTextField("xpath", "Shipping_postal_code")
 
-    #Enter the date of birth
+    #Enter the date of birth.
     functest.writeTextField("xpath", "Birth_date")
   
-    #Traverse through the list and select T-shirt Style
+    #Traverse through the list and select T-shirt Style.
     functest.setDropDownList("T_shirt_style")    
 
-    #Traverse through the list and select a T-shirt size
+    #Traverse through the list and select a T-shirt size.
     functest.setDropDownList("T_shirt_size")
 
-    #Select Gender as female   
+    #Select Gender as female.   
     functest.setDropDownList("Gender")
 
-    #Fill the text area
+    #Fill the text area.
     functest.writeTextField("xpath", "How_did_you_hear_about_gsoc")
 
-    #Unset the checkbox for Notification to new comments
+    #Unset the checkbox for Notification to new comments.
     functest.toggleCheckBox("Notify_to_new_public_comments")
  
-    #Enter School Name
+    #Enter School Name.
     functest.writeTextField("xpath", "School_name")   
 
-    #Select School Country
+    #Select School Country.
     functest.setDropDownList("School_country")
   
     #Enter Major Subject
     functest.writeTextField("xpath", "Major_subject")
   
-    #Select Degree
+    #Select Degree.
     functest.setDropDownList("Degree")
   
-    #Enter Expected Graduation  
+    #Enter Expected Graduation.  
     functest.writeTextField("xpath", "Expected_graduation")
   
-    #Enter School Homepage URL
+    #Enter School Homepage URL.
     functest.writeTextField("xpath", "School_homepage")
  
-    #Submit
+    #Submit.
     functest.clickOn("Submit_button")
     
     """ Check if a student has already registered with this user name.
