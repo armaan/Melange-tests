@@ -81,7 +81,7 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTests):
     #Enter a Postal code
     functest.writeTextField("xpath", "Postal_code")    
 
-    #Enter phone nuumber
+    #Enter phone number
     functest.writeTextField("xpath", "Phone")
     
     #Select publish location
