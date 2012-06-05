@@ -89,7 +89,7 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTests):
     #Enter the City.
     functest.writeTextField("id", "City")
 
-    #Enter State
+    #Enter State.
     functest.writeTextField("id", "State")
 
     #Traverse through all the country names and select a country From the List.
