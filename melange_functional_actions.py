@@ -22,7 +22,6 @@ import string
 import time
 import unittest2 as unittest
 
-from selenium import webdriver
 from selenium.common.exceptions import InvalidElementStateException
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoSuchAttributeException
@@ -30,6 +29,7 @@ from selenium.common.exceptions import NoSuchWindowException
 from selenium.common.exceptions import NoSuchFrameException
 from selenium.common.exceptions import TimeoutException
 from selenium.common.exceptions import WebDriverException
+from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.ui import WebDriverWait
