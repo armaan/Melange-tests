@@ -105,7 +105,7 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTests):
     #Select publish location.
     functest.toggleCheckBox("Publish_my_location")
 
-    #Enter Full recipient name  
+    #Enter Full recipient name.  
     functest.writeTextField("xpath", "Full_recepient_name")
 
     #Enter Shipping Street Adress.
@@ -120,7 +120,7 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTests):
     #Enter State.
     functest.writeTextField("xpath", "Shipping_state")
   
-    #Traverse through all the country names and select a country From the List.
+    #Traverse through all the country names and select a country from the list.
     functest.setDropDownList("Shipping_country")    
 
     #Enter postal code.
@@ -129,10 +129,10 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTests):
     #Enter the date of birth.
     functest.writeTextField("xpath", "Birth_date")
   
-    #Traverse through the list and select T-shirt Style.
+    #Traverse through the list and select t-shirt style.
     functest.setDropDownList("T_shirt_style")    
 
-    #Traverse through the list and select a T-shirt size.
+    #Traverse through the list and select a t-shirt size.
     functest.setDropDownList("T_shirt_size")
 
     #Select Gender as female.   
@@ -150,7 +150,7 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTests):
     #Select School Country.
     functest.setDropDownList("School_country")
   
-    #Enter Major Subject
+    #Enter Major Subject.
     functest.writeTextField("xpath", "Major_subject")
   
     #Select Degree.
