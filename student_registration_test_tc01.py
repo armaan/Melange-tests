@@ -1,6 +1,6 @@
 #!/usr/bin/env python2.5
 #
-# Copyright 2010 the Melange authors.
+# Copyright 2012 the Melange authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,163 +18,169 @@
                           correct values in the registration form.
 """
 
+import unittest
+
 from melange_functional_actions import *
 
+
 class StudentRegistrationTest(unittest.TestCase, FunctionalTests):
-
-  def setUp(self):
-    super(StudentRegistrationTest, self).setUp()
-    functest.getParameters('/home/syed/Desktop/testdata_melange.xls', 'TC01')
+  #Browser = self.Browser    
+     
+  def testForTryingToRegisterAsAStudent(self):
     
-  def test_ForTryingToRegisterAsAStudent(self):
-
-    Browser = self.Browser
-
-    #Go to url where melange is hosted.
-    Browser.get(functest.obj_id['Url'])
+    functest.getParameters('/home/syed/Desktop/testdata_melange.xls', 'TC01')
+    #Test Url, Change it according to your local dev environment.
+    self.Browser.get(functest.obj_id['Url'])
 
     #Check for the correct browser title.
-    self.assertIn("Google Summer of Code", Browser.title)
+    self.assertIn("Google Summer of Code", self.Browser.title)
 
-    #Check if "How Google Summer of Code Works" text is present on home page.
+    #Check if "How Google Summer of Code Works" is present.
     functest.assertText("How Google Summer of Code Works")
   
     #Scroll down.
-    Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    self.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
   
-    #Click on Register.
-    functest.waitAndClick(3, "Register_Button")    
-    functest.wait(2)
+    #Click on Register 
+    functest.clickOn("xpath", 'Register_Button')
   
-    #Clear the field, enter email id and click on login.
+    #Test env asks for email id, clear the field, enter email and click on login.
+    functest.wait(3) 
     functest.login()
 
-    #Wait for few seconds to let the page load then fill the user name field.
-    functest.waitAndEnterText(5, "Username")
+    #Wait for the page load completely, then fill the user name field
+    #functest.waitAndEnterText(5, "xpath", "Username")
     
-    #Fill the public name field.  
+    #Fill the public name field  
     functest.writeTextField("id", "Public_name")
-    Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    self.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
-    #Fill IM network field.
+    #Fill IM network field
     functest.writeTextField("id", "Im_network")
 
-    #Fill IM handle field.
+    #Fill IM handle field
     functest.writeTextField("id", "Im_handle")
   
-    #Enter a valid home page address.
+    #Enter a valid home page address
     functest.writeTextField("id", "Home_page_url")
   
-    #Enter a valid blog address.
+    #Enter a valid blog address
     functest.writeTextField("id", "Blog_url")
   
-    #Enter photo url.
+    #Enter photo url
     functest.writeTextField("id", "Thumbnail_photo_url")
 
-    #Enter first name.
+    #Enter Given Name
     functest.writeTextField("id", "First_name")
 
-    #Enter Surname.
+    #Enter Surname
     functest.writeTextField("id", "Last_name")
 
-    #Enter Email.
+    #Enter Email
     functest.writeTextField("id", "Email")
 
-    #Enter Resedential Street Adress.
+    #Enter Resedential Street Adress
     functest.writeTextField("id", "Res_street")
 
-    #Enter Extra Residential Adress.
+    #Enter Extra Residential Adress
     functest.writeTextField("id", "Res_street_extra")
 
-    #Enter the City.
+    #Enter the City
     functest.writeTextField("id", "City")
 
-    #Enter State.
+    #Enter State
     functest.writeTextField("id", "State")
 
-    #Traverse through all the country names and select a country From the List.
+    #Traverse through all the country names and select India From the List
     functest.setDropDownList("Country")
     functest.wait(2)
 
-    #Enter a Postal code.
+    #Enter Postal code
     functest.writeTextField("xpath", "Postal_code")    
 
-    #Enter phone number.
+    #Enter phone nuumber
     functest.writeTextField("xpath", "Phone")
     
-    #Select publish location.
-    functest.toggleCheckBox("Publish_my_location")
+    #Select publish location
+    functest.toggleCheckBox("xpath", "Publish_my_location")
 
-    #Enter Full recipient name.  
+    #Enter Full recipient name  
     functest.writeTextField("xpath", "Full_recepient_name")
 
-    #Enter Shipping Street Adress.
+    #Enter Shipping Street Adress
     functest.writeTextField("xpath", "Shipping_street")
 
-    #Enter Extra Shipping Street Adress.
+    #Enter Extra Shipping Street Adress
     functest.writeTextField("xpath", "Shipping_street_extra")
 
-    #Enter the city name for shipment.
+    #Enter the city name for shipment
     functest.writeTextField("xpath", "Shipping_city")
 
-    #Enter State.
+    #Enter State
     functest.writeTextField("xpath", "Shipping_state")
   
-    #Traverse through all the country names and select a country from the list.
+    #Traverse through all the country names and select a country From the List
     functest.setDropDownList("Shipping_country")    
 
-    #Enter postal code.
+    #Enter postal code
     functest.writeTextField("xpath", "Shipping_postal_code")
 
-    #Enter the date of birth.
+    #Enter the date of birth
     functest.writeTextField("xpath", "Birth_date")
   
-    #Traverse through the list and select t-shirt style.
+    #Traverse through the list and select T-shirt Style
     functest.setDropDownList("T_shirt_style")    
 
-    #Traverse through the list and select a t-shirt size.
+    #Traverse through the list and select a T-shirt size
     functest.setDropDownList("T_shirt_size")
 
-    #Select Gender as female.   
+    #Select Gender as female   
     functest.setDropDownList("Gender")
 
-    #Fill the text area.
+    #Fill the text area
     functest.writeTextField("xpath", "How_did_you_hear_about_gsoc")
 
-    #Unset the checkbox for Notification to new comments.
-    functest.toggleCheckBox("Notify_to_new_public_comments")
+    #Unset the checkbox for Notification to new comments
+    functest.toggleCheckBox("xpath", "Notify_to_new_public_comments")
  
-    #Enter School Name.
+    #Enter School Name
     functest.writeTextField("xpath", "School_name")   
 
-    #Select School Country.
+    #Select School Country
     functest.setDropDownList("School_country")
   
-    #Enter Major Subject.
+    #Enter Major Subject
     functest.writeTextField("xpath", "Major_subject")
   
-    #Select Degree.
+    #Select Degree
     functest.setDropDownList("Degree")
   
-    #Enter Expected Graduation.  
+    #Enter Expected Graduation  
     functest.writeTextField("xpath", "Expected_graduation")
   
-    #Enter School Homepage URL.
+    #Enter School Homepage URL
     functest.writeTextField("xpath", "School_homepage")
  
-    #Submit.
-    functest.clickOn("Submit_button")
+    #Submit
+    functest.clickOn("xpath", "Submit_button")
     
     """ Check if a student has already registered with this user name.
-        if true then change the user name and submit the form again.
+        if true change the user name and submit the form again.
     """
-    if functest.waitAndCheckIfDisplayed(5, "Already_registered") is True:
+    if functest.waitAndAssertIfDisplayed(5, "Already_registered") is True:
       functest.fillRandomValue("Username")
-      functest.clickOn("Submit_button") 
+      functest.clickOn("xpath", "Submit_button")
+    elif functest.waitAndAssertIfDisplayed(5, "Data_can_not_be_saved") is True:
+      raise
+    else:
+      pass
+      
     
 
   def tearDown(self):
     functest.tearDown()
+
+functest = FunctionalTests()
 
 if __name__ == "__main__":
   unittest.main()
