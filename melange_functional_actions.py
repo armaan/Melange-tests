@@ -322,7 +322,7 @@ class FunctionalTests(DjangoTestCase):
 
     self.Browser.save_screenshot("Melange.png")
 
-  def tearDown(self):
+  def teardown(self):
     """Take a screenshot and close the browser.
     """
 
