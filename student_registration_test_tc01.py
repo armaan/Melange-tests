@@ -23,7 +23,7 @@ import unittest
 from melange_functional_actions import *
 
 
-class StudentRegistrationTest(unittest.TestCase, FunctionalTests):
+class StudentRegistrationTest(FunctionalTests):
   #Browser = self.Browser    
      
   def testForTryingToRegisterAsAStudent(self):
@@ -183,5 +183,5 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTests):
 functest = FunctionalTests()
 
 if __name__ == "__main__":
-  unittest.main()
+  main()
 
