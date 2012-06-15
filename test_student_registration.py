@@ -49,7 +49,7 @@ class StudentRegistrationTest(FunctionalTests):
     self.login()
 
     #Wait for the page load completely, then fill the user name field
-    #self.waitAndEnterText(5, "xpath", "Username")
+    self.waitAndEnterText(5, "xpath", "Username")
     
     #Fill the public name field  
     self.writeTextField("id", "Public_name")
