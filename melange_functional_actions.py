@@ -27,17 +27,17 @@ from selenium.common import exceptions
 
 import xlrd
 
-from test_utils import DjangoTestCase
+#from test_utils import DjangoTestCase
 
-class FunctionalTests(DjangoTestCase):  
+class FunctionalTestCase(object):  
   """ Base Class for all the Melange Functional Tests.
       Contains actions which will be used in writing Test scripts.
   """
 
-  def __init__(self): 
+  def __init__(self):
     self.obj_id = {}
     self.obj_val = {}
-    self.Browser = webdriver.Firefox()
+    
   
   def getParameters(self, name_of_workbook, name_of_sheet):
     """ Read the test data from excel sheets.
@@ -299,13 +299,13 @@ class FunctionalTests(DjangoTestCase):
     self.clearField("xpath", element)
     self.Browser.find_element_by_xpath(self.obj_id[element]).send_keys(val)
 
-  def waitAndClick(self, sec, id_type="", elem_click = ""):
+  def waitAndClick(self, sec, id_type="", click_element = ""):
     """ wait and click on a particular element.
 
     Args:
       sec: Number of seconds script should wait.
       id_type: Type of identification used to uniquely identify an element.
-      elem_click: The element which we want to click.
+      click_element: The element which we want to click.
     """
     
     self.wait(sec)
@@ -321,6 +321,9 @@ class FunctionalTests(DjangoTestCase):
     """
 
     self.Browser.save_screenshot("Melange.png")
+
+  def setup(self):
+    self.Browser = webdriver.Firefox()
 
   def teardown(self):
     """Take a screenshot and close the browser.
