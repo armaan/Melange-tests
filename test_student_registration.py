@@ -27,7 +27,6 @@ from selenium.common import exceptions
 
 import xlrd
 
-#from test_utils import DjangoTestCase
 
 class FunctionalTestCase(object):  
   """ Base Class for all the Melange Functional Tests.
