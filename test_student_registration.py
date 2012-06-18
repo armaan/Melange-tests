@@ -14,328 +14,176 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Base module for writing functional test scripts.
+""" Student registration: A student registers himfunctest/herfunctest by entering all
+                          correct values in the registration form.
 """
 
-import random
-import string
-import time
-import logging
+import unittest
 
-from selenium import webdriver
-from selenium.common import exceptions
-
-import xlrd
+from melange_functional_actions import *
 
 
-class FunctionalTestCase(object):  
-  """ Base Class for all the Melange Functional Tests.
-      Contains actions which will be used in writing Test scripts.
-  """
+class StudentRegistrationTest(unittest.TestCase, FunctionalTestCase):
 
-  def __init__(self):
-    self.obj_id = {}
-    self.obj_val = {}
-    
+  def setUp(self):
+    functest.setup()
+    functest.getParameters('/home/syed/Desktop/testdata_melange.xls', 'TC01')    
+     
+  def testForTryingToRegisterAsAStudent(self):
+
+    #Test Url, Change it according to your local dev environment.
+    functest.Browser.get(functest.obj_id['Url'])
+
+    #Check for the correct browser title.
+    self.assertIn("Google Summer of Code", functest.Browser.title)
+
+    #Check if "How Google Summer of Code Works" is present.
+    functest.assertText("How Google Summer of Code Works")
   
-  def getParameters(self, name_of_workbook, name_of_sheet):
-    """ Read the test data from excel sheets.
-
-    Args:
-      name_of_workbook: Workbook from which the test data will be imported.
-      name_of_sheet: Particular sheet whose contents will be imported.
-    """
-    log = logging.getLogger("melange_functional_actions")
-    log.setLevel(logging.DEBUG)
-    logging.basicConfig()
-    try:
-      workbook = xlrd.open_workbook(name_of_workbook)
-    except IOError as e:
-      log.debug("Workbook %s not found" % (name_of_workbook))
-      raise e               
-    #Get a sheet by name.
-    sheet = workbook.sheet_by_name(name_of_sheet)                        
-    #Pulling all the element values from spreadsheet.
-    for x in range(1, sheet.nrows):
-      for y in range(0,1):
-        obj = sheet.cell_value(x,y)
-        id = sheet.cell_value(x,y+1)
-        value = sheet.cell_value(x,y+2)
-        self.obj_id[obj] = id
-        self.obj_val[obj] = value
-
-  def wait(self, sec):
-    """ Delay the execution of script for specified number of seconds.
-
-    Args:
-      sec: Number of seconds for which the script should wait.
-    """
-
-    print "waiting for page to load for %s seconds " % sec
-    time.sleep(sec)
-
-  def writeTextField(self, id_type="", element=""):
-    """ Write text field in a form.
-
-    Args:
-      id_type: Type of identification used to uniquely identify an element.
-      element: Particular text field which will be written.
-    """
-
-    if id_type == "id":
-      self.Browser.find_element_by_id(self.obj_id[element]).send_keys(\
-                                                      self.obj_val[element])
-    elif id_type == "xpath":
-      self.Browser.find_element_by_xpath(self.\
-                           obj_id[element]).send_keys(self.obj_val[element])
-    else:
-      raise NoSuchElementException 
-
-  def toggleCheckBox(self, id_type="", chk_box=""):
-    """ Toggle a check box.
-
-    Args:
-      id_type: Type of identification used to uniquely identify an element.
-      chk_box: particular check box which will be selected/not selected.
-    """
-
-    if id_type == "id":
-      self.Browser.find_element_by_id(self.obj_id[chk_box]).click()
-    elif id_type == "xpath":
-      self.Browser.find_element_by_xpath(self.obj_id[chk_box]).click()
-    else:
-      raise NoSuchElementException
-
-  def setDropDownList(self, select_opt=""):
-    """ Selects one option from the drop down list.
-
-    Args:
-      select_opt: The option which should be selected from the drop down list.       
-    """
-
-    selection = self.Browser.find_element_by_xpath\
-                                                  (self.obj_id[select_opt])
-    all_options = selection.find_elements_by_tag_name("option")
-    for option in all_options:
-      if (option.get_attribute("value") == self.obj_val[select_opt]):
-        option.click()
-    
-  def waitAndEnterText(self, sec, id_type="", element=""):
-    """ Wait and enter text in a particular field.
-
-    Args:
-      sec: Number of seconds script should wait.
-      id_type: Type of identification used to uniquely identify an element.
-      element: The field in which we we want to enter some text.      
-    """
-
-    self.wait(sec)
-    if id_type == "id":
-      self.Browser.find_element_by_id(self.obj_id[element]).send_keys\
-                                                        (self.obj_val[element])
-    elif id_type == "xpath":
-      self.Browser.find_element_by_xpath(self.obj_id[element]).send_keys\
-                                                        (self.obj_val[element])
-    else:
-      raise NoSuchElementException   
-
-  def clearFieldAssertErrorMessageAndEnterData(self, error_element , element=""):
-    """Assert the error message , clear the input field and enter a new value.
-
-    Args:
-      erro_element: It is the element which is showing error message.
-      element: The correct value for the input field.                 
-    """
-
-    self.assertTextIn(error_element)
-    self.clearField("xpath", element)
-    self.writeTextField("xpath", element)
- 
-  def clearField(self, id_type="", clear_element=""):
-    """ Wait and clear a particular field.
-
-    Args:
-      clear_element: The field which we want to clear.
-      id_type: Type of identification used to uniquely identify an element.
-    """
-    if id_type == "id":
-      self.Browser.find_element_by_id(self.obj_id[clear_element]).clear()
-    elif id_type == "xpath":
-      self.Browser.find_element_by_xpath(self.obj_id[clear_element]).clear()
-    else:
-      raise NoSuchElementException   
- 
-  def clickOn(self, id_type="", click_element=""):
-    """ Click on the specified element.
-
-    Args:
-      click_element: The element which will be clicked.
-      id_type: Type of identification used to uniquely identify an element.
-    """
-
-    if id_type == "id":
-      self.Browser.find_element_by_id(self.obj_id[click_element]).click()
-    elif id_type == "xpath":
-      self.Browser.find_element_by_xpath(self.obj_id[click_element]).click()
-    else:
-      raise NoSuchElementException
-
-  def assertError(self, msg):
-    """Print the message and raise assertion error.
-
-    Args:
-      msg: The message which should be printed.  
-    """
-
-    print msg
-    raise AssertionError(msg)
-
-  def assertLink(self, link_text=""):
-    """Assert if a link is there.
-
-    Args:
-      link_text: The link which will be tested.  
-    """
-
-    try:
-      link = self.Browser.find_element_by_link_text(link_text)      
-    except NoSuchElementException as e :
-      msg = "The text %s is not part of a Link" % link_text
-      self.assertError(msg)
-
-  def assertText(self, text_element=""):
-    """Assert a particular text.
-
-    Args:
-      text_element: The text which will be checked. 
-    """
-
-    txt = self.Browser.find_element_by_xpath(self.obj_id[text_element]).text
-    if txt is None:
-        msg = "Element %s has no text %s " % (text_element, txt)
-        self.assertError(msg)
-    if txt != self.obj_val[text_element]:
-        msg = "Element text should be %s. It is %s."\
-                                            % (self.obj_val[text_element], txt)
-        self.assertError(msg)
-
-  def assertMessageAndEnterText(self, error_element="", input_field=""):
-    """Assert a message and enter value in the text field.
-
-    Args:
-      error_element : the error message from the application which will be checked.
-      input_field : input box in which a value will be entered.
-    """
-
-    self.assertText(error_element)
-    self.writeTextField("xpath", input_field)
-
-  def assertTextIn(self, text_element):
-    """check for the contents present in a text message.
-
-    Args:
-      text_element : the message content which will be checked with the
-                     message from the application.      
-    """
-
-    error_msg = self.Browser.find_element_by_xpath(\
-                                               self.obj_id[text_element]).text
-    if error_msg is None:
-        msg = "Element %s has no text %s " % (text_element, error_msg)
-        self.assertError(msg)
-    if error_msg not in self.obj_val[text_element]:
-        msg = "Element text should be %s.  It is %s." % (self.obj_val[\
-                                                         text_element], error_msg)
-        self.assertError(msg)
-
-  def waitAndAssertIfDisplayed(self, sec, element_displayed=""):
-    """ Wait and check if a particular element is displayed.
-
-    Args:
-      sec: Number of seconds script should wait.
-      element_displayed: The element which we want to check if it displayed, if
-                         it is displayed then return true else raise exception.
-    """
+    #Scroll down.
+    functest.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
   
-    self.wait(sec)
-    try:
-      self.Browser.find_element_by_xpath\
-           (self.obj_id[element_displayed]).is_displayed()
-      return True
-    except:
-      raise NoSuchElementException
+    #Click on Register 
+    functest.clickOn("xpath", 'Register_Button')
+  
+    #Test env asks for email id, clear the field, enter email and click on login.
+    functest.wait(3) 
+    functest.login()
 
-  def isElementDisplayed(self, sec, element_displayed=""):
-    """ Wait and check if a particular element is displayed.
+    #Wait for the page load completely, then fill the user name field
+    functest.waitAndEnterText(5, "xpath", "Username")
+    
+    #Fill the public name field  
+    functest.writeTextField("id", "Public_name")
+    functest.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
-    Args:
-      sec: Number of seconds script should wait.
-      element_displayed: A particular message which we want to check if it is 
-                         displayed, if the message is absent, we wish the normal
-                         execution of test to continue.
+    #Fill IM network field
+    functest.writeTextField("id", "Im_network")
+
+    #Fill IM handle field
+    functest.writeTextField("id", "Im_handle")
+  
+    #Enter a valid home page address
+    functest.writeTextField("id", "Home_page_url")
+  
+    #Enter a valid blog address
+    functest.writeTextField("id", "Blog_url")
+  
+    #Enter photo url
+    functest.writeTextField("id", "Thumbnail_photo_url")
+
+    #Enter Given Name
+    functest.writeTextField("id", "First_name")
+
+    #Enter Surname
+    functest.writeTextField("id", "Last_name")
+
+    #Enter Email
+    functest.writeTextField("id", "Email")
+
+    #Enter Resedential Street Adress
+    functest.writeTextField("id", "Res_street")
+
+    #Enter Extra Residential Adress
+    functest.writeTextField("id", "Res_street_extra")
+
+    #Enter the City
+    functest.writeTextField("id", "City")
+
+    #Enter State
+    functest.writeTextField("id", "State")
+
+    #Traverse through all the country names and select India From the List
+    functest.setDropDownList("Country")
+    functest.wait(2)
+
+    #Enter Postal code
+    functest.writeTextField("xpath", "Postal_code")    
+
+    #Enter phone nuumber
+    functest.writeTextField("xpath", "Phone")
+    
+    #Select publish location
+    functest.toggleCheckBox("xpath", "Publish_my_location")
+
+    #Enter Full recipient name  
+    functest.writeTextField("xpath", "Full_recepient_name")
+
+    #Enter Shipping Street Adress
+    functest.writeTextField("xpath", "Shipping_street")
+
+    #Enter Extra Shipping Street Adress
+    functest.writeTextField("xpath", "Shipping_street_extra")
+
+    #Enter the city name for shipment
+    functest.writeTextField("xpath", "Shipping_city")
+
+    #Enter State
+    functest.writeTextField("xpath", "Shipping_state")
+  
+    #Traverse through all the country names and select a country From the List
+    functest.setDropDownList("Shipping_country")    
+
+    #Enter postal code
+    functest.writeTextField("xpath", "Shipping_postal_code")
+
+    #Enter the date of birth
+    functest.writeTextField("xpath", "Birth_date")
+  
+    #Traverse through the list and select T-shirt Style
+    functest.setDropDownList("T_shirt_style")    
+
+    #Traverse through the list and select a T-shirt size
+    functest.setDropDownList("T_shirt_size")
+
+    #Select Gender as female   
+    functest.setDropDownList("Gender")
+
+    #Fill the text area
+    functest.writeTextField("xpath", "How_did_you_hear_about_gsoc")
+
+    #Unset the checkbox for Notification to new comments
+    functest.toggleCheckBox("xpath", "Notify_to_new_public_comments")
+ 
+    #Enter School Name
+    functest.writeTextField("xpath", "School_name")   
+
+    #Select School Country
+    functest.setDropDownList("School_country")
+  
+    #Enter Major Subject
+    functest.writeTextField("xpath", "Major_subject")
+  
+    #Select Degree
+    functest.setDropDownList("Degree")
+  
+    #Enter Expected Graduation  
+    functest.writeTextField("xpath", "Expected_graduation")
+  
+    #Enter School Homepage URL
+    functest.writeTextField("xpath", "School_homepage")
+ 
+    #Submit
+    functest.clickOn("xpath", "Submit_button")
+    
+    """ Check if a student has already registered with this user name.
+        if true change the user name and submit the form again.
     """
-   
-    self.wait(sec)
-    try:
-      self.Browser.find_element_by_xpath\
-                                 (self.obj_id[element_displayed]).is_displayed()
-      return True
-    except:
+    if functest.isElementDisplayed(5, "Already_registered") is True:
+      functest.fillRandomValue("Username")
+      functest.clickOn("xpath", "Submit_button")
+    elif functest.isElementDisplayed(5, "Data_can_not_be_saved") is True:
+      raise
+    else:
       pass
-
-  def fillRandomValue(self, element=""):
-    """ It takes a value , add random string at the end and fill it in the form.
-
-    Args:
-      element: The element whose value will be changed by adding a random string 
-               at the end.
-    """
-
-    N=5
-    val = self.obj_val[element] + ''.join(random.choice(string.ascii_lowercase\
-                                             + string.digits) for x in range(N))
-    self.wait(1)
-    self.clearField("xpath", element)
-    self.Browser.find_element_by_xpath(self.obj_id[element]).send_keys(val)
-
-  def waitAndClick(self, sec, id_type="", click_element = ""):
-    """ wait and click on a particular element.
-
-    Args:
-      sec: Number of seconds script should wait.
-      id_type: Type of identification used to uniquely identify an element.
-      click_element: The element which we want to click.
-    """
+      
     
-    self.wait(sec)
-    if id_type == "id":
-      self.Browser.find_element_by_id(self.obj_id[click_element]).click()
-    elif id_type == "xpath":
-      self.Browser.find_element_by_xpath(self.obj_id[click_element]).click()
-    else:
-      raise NoSuchElementException    
-        
-  def takeScreenshot(self):
-    """Take screenshot.
-    """
 
-    self.Browser.save_screenshot("Melange.png")
+  def tearDown(self):
+    functest.teardown()
 
-  def setup(self):
-    self.Browser = webdriver.Firefox()
+functest = FunctionalTestCase()
 
-  def teardown(self):
-    """Take a screenshot and close the browser.
-    """
+if __name__ == "__main__":
+  unittest.main()
 
-    self.wait(2)
-    self.takeScreenshot()
-    self.Browser.close()
-
-  def login(self):
-    """ Logs in to the melange.
-    """
-
-    self.clearField("xpath", "Login_email")
-    self.writeTextField("xpath", "Login_email")
-    self.clickOn("xpath", "Sign_in_button")
