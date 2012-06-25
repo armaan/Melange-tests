@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-""" This test case test the functionality of Search Page.
+""" This test case test the functionality of GSoC Search Page.
 """
 
 import unittest
@@ -24,37 +24,35 @@ from melange_functional_actions import *
 class SearchPageTest(unittest.TestCase, FunctionalTestCase):
   
   def setUp(self):
-    functest.setup()
-    functest.getParameters("/home/syed/Desktop/testdata_melange.xls", "GSOC_Search_Test")
+    FunctionalTestCase.__init__(self)
+    self.setup()
+    self.getParameters("/home/syed/Desktop/testdata_melange.xls", "GSOC_Search_Test")
 
   def test_Search_Page(self):
  
     #Go to the url where melange is hosted.
-    functest.Browser.get(functest.obj_id['Url'])
+    self.Browser.get(self.obj_id['Url'])
     #Click on Search in the menu.
-    functest.clickOn("xpath", "Search")
-    functest.wait(10)
+    self.clickOn("xpath", "Search")
+    self.wait(10)
     #Enter the search item.
-    functest.writeTextField("xpath", "Search_item")
-    functest.wait(5)
+    self.writeTextField("xpath", "Search_item")
+    self.wait(5)
     #Click on Search
-    functest.clickOn("xpath", "Search_button")
-    functest.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-    functest.wait(5)
+    self.clickOn("xpath", "Search_button")
+    self.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    self.wait(5)
     #Enter new search item.
-    functest.clearField("xpath", "Search_item")
-    functest.writeTextField("xpath", "New_search_item")
-    functest.clickOn("xpath", "Search_button")
-    functest.wait(5)    
-    functest.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-
-
+    self.clearField("xpath", "Search_item")
+    self.writeTextField("xpath", "New_search_item")
+    self.clickOn("xpath", "Search_button")
+    self.wait(5)    
+    self.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
 
   def tearDown(self):
-    functest.teardown()
+    self.teardown()
 
-functest = FunctionalTestCase()
 if __name__ == "__main__":
   unittest.main()
      
