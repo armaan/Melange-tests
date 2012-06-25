@@ -237,48 +237,34 @@ class FunctionalTestCase(object):
                      message from the application.      
     """
 
-    error_msg = self.Browser.find_element_by_xpath(\
+    text_msg = self.Browser.find_element_by_xpath(\
                                                self.obj_id[text_element]).text
-    if error_msg is None:
-        msg = "Element %s has no text %s " % (text_element, error_msg)
+    if text_msg is None:
+        msg = "Element %s has no text %s " % (text_element, text_msg)
         self.assertError(msg)
-    if error_msg not in self.obj_val[text_element]:
+    if text_msg not in self.obj_val[text_element]:
         msg = "Element text should be %s.  It is %s." % (self.obj_val[\
-                                                         text_element], error_msg)
+                                                         text_element], text_msg)
         self.assertError(msg)
-
-  def waitAndAssertIfDisplayed(self, sec, element_displayed=""):
-    """ Wait and check if a particular element is displayed.
-
-    Args:
-      sec: Number of seconds script should wait.
-      element_displayed: The element which we want to check if it displayed, if
-                         it is displayed then return true else raise exception.
-    """
-  
-    self.wait(sec)
-    try:
-      self.Browser.find_element_by_xpath\
-           (self.obj_id[element_displayed]).is_displayed()
+    if text_msg in self.obj_val[text_element]:
       return True
-    except:
-      raise NoSuchElementException
 
   def isElementDisplayed(self, sec, element_displayed=""):
     """ Wait and check if a particular element is displayed.
 
     Args:
       sec: Number of seconds script should wait.
-      element_displayed: A particular message which we want to check if it is 
-                         displayed, if the message is absent, we wish the normal
-                         execution of test to continue.
+      element_displayed: A particular element which we want to check if it is 
+                         displayed. Return True if it is present else return false.
     """
    
     self.wait(sec)
     try:
-      self.Browser.find_element_by_xpath\
-                                 (self.obj_id[element_displayed]).is_displayed()
-      return True
+      if self.Browser.find_element_by_xpath\
+                                 (self.obj_id[element_displayed]).is_displayed():
+        return True
+      else:
+        return False
     except:
       pass
 
@@ -313,7 +299,8 @@ class FunctionalTestCase(object):
       self.Browser.find_element_by_xpath(self.obj_id[click_element]).click()
     else:
       raise NoSuchElementException    
-        
+
+
   def takeScreenshot(self):
     """Take screenshot.
     """
@@ -321,6 +308,8 @@ class FunctionalTestCase(object):
     self.Browser.save_screenshot("Melange.png")
 
   def setup(self):
+    """Create a Browser Instance.
+    """
     self.Browser = webdriver.Firefox()
 
   def teardown(self):
@@ -331,10 +320,26 @@ class FunctionalTestCase(object):
     self.takeScreenshot()
     self.Browser.close()
 
-  def login(self):
-    """ Logs in to the melange.
+  def loginOnLocalhost(self):
+    """ Logs in to the melange on localhost.
     """
 
-    self.clearField("xpath", "Login_email")
-    self.writeTextField("xpath", "Login_email")
-    self.clickOn("xpath", "Sign_in_button")
+    self.clearField("xpath", "Login_email_localhost")
+    self.writeTextField("xpath", "Login_email_localhost")
+    self.clickOn("xpath", "Sign_in_button_localhost")
+
+  def loginByGoogleAccount(self):
+    """ Logs in to the melange using Google Account.
+    """
+    self.wait(30)
+    self.clearField("xpath", "Google_account")
+    self.writeTextField("xpath", "Google_account")
+    self.wait(2)
+    self.writeTextField("xpath", "Password_for_google_account")
+    self.wait(2)    
+    self.clickOn("xpath", "Sign_in")
+    
+
+
+
+
