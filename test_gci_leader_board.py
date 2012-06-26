@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-""" GCI Leaderboard: 
+""" GCI Leaderboard: This test case checks the functionality of Leaderboard.
 """
 
 import unittest
@@ -44,24 +44,36 @@ class GCILeaderboardTest(unittest.TestCase, FunctionalTestCase):
     #Click On Leader Board.
     self.clickOn("xpath", "Leader_board")
     self.wait(3)
+
+    #Assert Leader Board text.
     self.assertText("Leader_board_text")
     self.wait(3)
-    self.clickOn("xpath", "Refresh")
-    self.wait(3) 
-    self.clickOn("xpath", "Columns")
-    self.wait(3) 
-    self.clickOn("xpath", "Add_key")
-    self.wait(3) 
-    self.clickOn("xpath", "OK")
-    self.wait(3) 
-    self.clickOn("xpath", "CSV_export")
-    self.wait(3) 
-    self.clickOn("xpath", "Close")
 
+    #Click to refresh.
+    self.clickOn("xpath", "Refresh")
+    self.wait(3)
+
+    #Click on columns.
+    self.clickOn("xpath", "Columns")
+    self.wait(3)
+
+    #Select one more column value.
+    self.clickOn("xpath", "Add_key")
+    self.wait(3)
+
+    #Click OK.
+    self.clickOn("xpath", "OK")
+    self.wait(3)
+
+    #Click on CSV export.
+    self.clickOn("xpath", "CSV_export")
+    self.wait(3)
+
+    #Click on close.
+    self.clickOn("xpath", "Close")
 
   def tearDown(self):
     self.teardown()
-
 
 if __name__ == "__main__":
   unittest.main()
