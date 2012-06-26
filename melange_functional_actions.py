@@ -262,7 +262,6 @@ class FunctionalTestCase(object):
       element: The element whose value will be changed by adding a random string 
                at the end.
     """
-
     N=5
     val = self.obj_val[element] + ''.join(random.choice(string.ascii_lowercase\
                                              + string.digits) for x in range(N))
