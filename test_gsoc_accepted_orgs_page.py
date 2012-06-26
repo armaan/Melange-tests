@@ -14,8 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-""" Student registration: A student registers himself/herself by entering all
-                          correct values in the registration form.
+""" Accepted Organisations: This test case checks the functionality on Accepted
+                            Organisations Page.
 """
 
 import unittest
@@ -69,6 +69,8 @@ class AcceptedOrganisationsTest(unittest.TestCase, FunctionalTestCase):
     #Reload Grid.
     self.clickOn("xpath", "Reload_grid")
     self.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+
+    #Check column functionality.
     self.clickOn("xpath", "Column")
     self.wait(3)
     self.clickOn("xpath", "Remove_all")
@@ -79,6 +81,7 @@ class AcceptedOrganisationsTest(unittest.TestCase, FunctionalTestCase):
     self.wait(3)
     self.clickOn("xpath", "OK")
 
+    #Search an organisation.
     self.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
     self.wait(3)
     self.clearField("xpath", "Search_organisation")
@@ -90,27 +93,9 @@ class AcceptedOrganisationsTest(unittest.TestCase, FunctionalTestCase):
     self.clearField("xpath", "Search_organisation")
     self.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
-    
-
-  
-
-
   def tearDown(self):
     self.teardown()
 
-
 if __name__ == "__main__":
-  unittest.main()    
-
-
-
-
-
-
-
-
-
-
-
-
+  unittest.main()
 
