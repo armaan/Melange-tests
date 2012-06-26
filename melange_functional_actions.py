@@ -35,7 +35,6 @@ class FunctionalTestCase(object):
   def __init__(self):
     self.obj_id = {}
     self.obj_val = {}
-    
   
   def getParameters(self, name_of_workbook, name_of_sheet):
     """ Read the test data from excel sheets.
@@ -69,7 +68,6 @@ class FunctionalTestCase(object):
     Args:
       sec: Number of seconds for which the script should wait.
     """
-
     print "waiting for page to load for %s seconds " % sec
     time.sleep(sec)
 
@@ -80,7 +78,6 @@ class FunctionalTestCase(object):
       id_type: Type of identification used to uniquely identify an element.
       element: Particular text field which will be written.
     """
-
     if id_type == "id":
       self.Browser.find_element_by_id(self.obj_id[element]).send_keys(\
                                                       self.obj_val[element])
@@ -97,7 +94,6 @@ class FunctionalTestCase(object):
       id_type: Type of identification used to uniquely identify an element.
       chk_box: particular check box which will be selected/not selected.
     """
-
     if id_type == "id":
       self.Browser.find_element_by_id(self.obj_id[chk_box]).click()
     elif id_type == "xpath":
@@ -111,7 +107,6 @@ class FunctionalTestCase(object):
     Args:
       select_opt: The option which should be selected from the drop down list.       
     """
-
     selection = self.Browser.find_element_by_xpath\
                                                   (self.obj_id[select_opt])
     all_options = selection.find_elements_by_tag_name("option")
@@ -127,7 +122,6 @@ class FunctionalTestCase(object):
       id_type: Type of identification used to uniquely identify an element.
       element: The field in which we we want to enter some text.      
     """
-
     self.wait(sec)
     if id_type == "id":
       self.Browser.find_element_by_id(self.obj_id[element]).send_keys\
@@ -145,7 +139,6 @@ class FunctionalTestCase(object):
       erro_element: It is the element which is showing error message.
       element: The correct value for the input field.                 
     """
-
     self.assertTextIn(error_element)
     self.clearField("xpath", element)
     self.writeTextField("xpath", element)
@@ -171,7 +164,6 @@ class FunctionalTestCase(object):
       click_element: The element which will be clicked.
       id_type: Type of identification used to uniquely identify an element.
     """
-
     if id_type == "id":
       self.Browser.find_element_by_id(self.obj_id[click_element]).click()
     elif id_type == "xpath":
@@ -185,7 +177,6 @@ class FunctionalTestCase(object):
     Args:
       msg: The message which should be printed.  
     """
-
     print msg
     raise AssertionError(msg)
 
@@ -195,7 +186,6 @@ class FunctionalTestCase(object):
     Args:
       link_text: The link which will be tested.  
     """
-
     try:
       link = self.Browser.find_element_by_link_text(link_text)      
     except NoSuchElementException as e :
@@ -225,7 +215,6 @@ class FunctionalTestCase(object):
       error_element : the error message from the application which will be checked.
       input_field : input box in which a value will be entered.
     """
-
     self.assertText(error_element)
     self.writeTextField("xpath", input_field)
 
@@ -236,7 +225,6 @@ class FunctionalTestCase(object):
       text_element : the message content which will be checked with the
                      message from the application.      
     """
-
     text_msg = self.Browser.find_element_by_xpath(\
                                                self.obj_id[text_element]).text
     if text_msg is None:
@@ -256,8 +244,7 @@ class FunctionalTestCase(object):
       sec: Number of seconds script should wait.
       element_displayed: A particular element which we want to check if it is 
                          displayed. Return True if it is present else return false.
-    """
-   
+    """   
     self.wait(sec)
     try:
       if self.Browser.find_element_by_xpath\
@@ -290,8 +277,7 @@ class FunctionalTestCase(object):
       sec: Number of seconds script should wait.
       id_type: Type of identification used to uniquely identify an element.
       click_element: The element which we want to click.
-    """
-    
+    """    
     self.wait(sec)
     if id_type == "id":
       self.Browser.find_element_by_id(self.obj_id[click_element]).click()
@@ -304,7 +290,6 @@ class FunctionalTestCase(object):
   def takeScreenshot(self):
     """Take screenshot.
     """
-
     self.Browser.save_screenshot("Melange.png")
 
   def setup(self):
@@ -315,7 +300,6 @@ class FunctionalTestCase(object):
   def teardown(self):
     """Take a screenshot and close the browser.
     """
-
     self.wait(2)
     self.takeScreenshot()
     self.Browser.close()
@@ -323,7 +307,6 @@ class FunctionalTestCase(object):
   def loginOnLocalhost(self):
     """ Logs in to the melange on localhost.
     """
-
     self.clearField("xpath", "Login_email_localhost")
     self.writeTextField("xpath", "Login_email_localhost")
     self.clickOn("xpath", "Sign_in_button_localhost")
@@ -338,8 +321,4 @@ class FunctionalTestCase(object):
     self.writeTextField("xpath", "Password_for_google_account")
     self.wait(2)    
     self.clickOn("xpath", "Sign_in")
-    
-
-
-
 
