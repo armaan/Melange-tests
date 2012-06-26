@@ -198,7 +198,6 @@ class FunctionalTestCase(object):
     Args:
       text_element: The text which will be checked. 
     """
-
     txt = self.Browser.find_element_by_xpath(self.obj_id[text_element]).text
     if txt is None:
         msg = "Element %s has no text %s " % (text_element, txt)
