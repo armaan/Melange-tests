@@ -14,7 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-""" This test case test the functionality of GSoC About Page.
+""" This test case checks links and text present on GCI About Page.
 """
 
 import unittest
@@ -24,11 +24,13 @@ from melange_functional_actions import *
 class GCIAboutPageTest(unittest.TestCase, FunctionalTestCase):
   
   def setUp(self):
+
     FunctionalTestCase.__init__(self)
     self.setup()
     self.getParameters("/home/syed/Desktop/testdata_melange.xls", "GCI_About_Test")
 
   def test_GCI_About_Page(self):
+
     #Test Url, Change it according to your local dev environment.
     self.Browser.get(self.obj_id['Url'])
 
@@ -38,21 +40,21 @@ class GCIAboutPageTest(unittest.TestCase, FunctionalTestCase):
     #Click on About Page.
     self.clickOn("xpath", "About")
 
-    #Check for the browser title.
+    #Assery browser title.
     self.wait(5)
     self.assertIn("About Google Code-In", self.Browser.title)
 
-    #Assert message about GCI.
+    #Assert message on About GCI page.
     self.assertText("About_GCI")
 
-    #Assert Links.
+    #Assert Link "contest announcement list".
     self.assertLink("contest announcement list")
-    self.assertLink("Google Open Source Blog")
 
+    #Assert Link "Google Open Source Blog".
+    self.assertLink("Google Open Source Blog")
 
   def tearDown(self):
     self.teardown()
-
 
 if __name__ == "__main__":
   unittest.main()    
