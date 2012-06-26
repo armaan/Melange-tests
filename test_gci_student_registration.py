@@ -56,7 +56,7 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTestCase):
   
     #Test env asks for email id, clear the field, enter email and click on login.
     self.wait(3) 
-    self.login()
+    self.loginOnLocalhost()
     self.wait(3) 
 
     #Wait for the page load completely, then fill the user name field
@@ -164,22 +164,17 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTestCase):
     #Submit
     self.clickOn("xpath", "Submit_button")
     
-    """ Check if a student has already registered with this user name.
-        if true change the user name and submit the form again.
-    """
-    if self.isElementDisplayed(5, "Already_registered") is True:
-      self.fillRandomValue("Username")
-      self.clickOn("xpath", "Submit_button")
-    elif self.waitAndAssertIfDisplayed(5, "Data_can_not_be_saved") is not True:
-      raise
-    else:
-      pass
+    if self.isElementDisplayed(5, "Data_can_not_be_saved") is True:
+      text = self.Browser.find_element_by_xpath("//*[@id='flash-message']/p").text
+      if text == "Sorry, we could not save your data. Please fix the errors mentioned below.":  
+        self.assertError(text)
+      if text == "Data saved successfully.":
+        pass
 
     
   def tearDown(self):
     self.teardown()
 
-#self = FunctionalTestCase()
 
 if __name__ == "__main__":
   unittest.main()
