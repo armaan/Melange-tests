@@ -63,7 +63,7 @@ class AboutPageTest(unittest.TestCase, FunctionalTestCase):
     #Assert "Google Open Source Blog" link.    
     self.assertLink("Google Open Source Blog")
 
-def tearDown(self):
+  def tearDown(self):
     self.teardown()
 
 if __name__ == "__main__":
