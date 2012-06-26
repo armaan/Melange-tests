@@ -176,53 +176,88 @@ class GCIDashboardTest(unittest.TestCase, FunctionalTestCase):
     self.wait(5)
     self.clickOn("xpath", "Dashboard")
 
-    #Click on Invites to me link.
+    #Click on "Invites to me" link.
     self.wait(3)
     self.clickOn("xpath", "Invites_to_me")
+
+    #Click on Filter
     self.wait(3)
     self.clickOn("xpath", "Filter_records")
+
+    #Add a rule.
     self.wait(3)
     self.clickOn("xpath", "Filter_plus")
+
+    #Select filter.
     self.wait(3)
     self.setDropDownList("Filter_by")
+
+    #Click to Reset Filters.
     self.wait(3)
     self.clickOn("xpath", "Reset")
+
+    #Click to close the filter menu.
     self.wait(3)
     self.clickOn("xpath", "Close")
+
+    #Click on Refresh to reload the grid.
     self.wait(3)
     self.clickOn("xpath", "Refresh")
+
+    #Click on Column.
     self.wait(3)
     self.clickOn("xpath", "Column")
+
+    #Click to add key.
     self.wait(3)
     self.clickOn("xpath", "Add_key")
+
+    #Click ok.
     self.wait(3)
     self.clickOn("xpath", "OK")
-    
+
+    #Go back to dashboard.
+    self.wait(3)
     self.clickOn("xpath", "Dashboard")
+
+    #Click on My requests link.
     self.wait(3)
     self.clickOn("xpath", "My_requests")
+
+    #Click on filter.
     self.wait(3)
     self.clickOn("xpath", "Requests_filter")
+
+    #Set a value for filter.
     self.wait(3)
     self.setDropDownList("Requests_key")
+
+    #Reset filter.
     self.wait(3)
     self.clickOn("xpath", "Request_filter_reset")
+
+    #Close filter.
     self.wait(3)
     self.clickOn("xpath", "Requests_filter_close")
+
+    #Reload the grid.
     self.wait(3)
     self.clickOn("xpath", "Requests_refresh")
+
+    #Click on Column.
     self.wait(3)
     self.clickOn("xpath", "Requests_column")
+
+    #Select one more colum value.
     self.wait(3)
     self.clickOn("xpath", "Request_column_key")
+
+    #Click on OK.
     self.wait(3)
-    self.clickOn("xpath", "Request_OK")
-    self.wait(3)
-  
+    self.clickOn("xpath", "Request_OK")  
     
   def tearDown(self):
     self.teardown()
-
 
 if __name__ == "__main__":
   unittest.main()
