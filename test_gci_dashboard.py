@@ -56,7 +56,7 @@ class GCIDashboardTest(unittest.TestCase, FunctionalTestCase):
     self.clickOn("xpath", "Submit_age")
   
     #Test env asks for email id, clear the field, enter email and click on login.
-    self.wait(3) 
+    self.wait(5) 
     self.loginOnLocalhost()
     self.wait(3) 
 
