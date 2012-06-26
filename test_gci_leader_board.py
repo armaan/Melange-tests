@@ -78,10 +78,3 @@ class GCILeaderboardTest(unittest.TestCase, FunctionalTestCase):
 if __name__ == "__main__":
   unittest.main()
 
-
-
-
-
-
-
-
