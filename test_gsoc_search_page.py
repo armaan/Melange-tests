@@ -24,6 +24,7 @@ from melange_functional_actions import *
 class SearchPageTest(unittest.TestCase, FunctionalTestCase):
   
   def setUp(self):
+
     FunctionalTestCase.__init__(self)
     self.setup()
     self.getParameters("/home/syed/Desktop/testdata_melange.xls", "GSOC_Search_Test")
@@ -32,23 +33,26 @@ class SearchPageTest(unittest.TestCase, FunctionalTestCase):
  
     #Go to the url where melange is hosted.
     self.Browser.get(self.obj_id['Url'])
+
     #Click on Search in the menu.
     self.clickOn("xpath", "Search")
     self.wait(10)
+
     #Enter the search item.
     self.writeTextField("xpath", "Search_item")
     self.wait(5)
+
     #Click on Search
     self.clickOn("xpath", "Search_button")
     self.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
     self.wait(5)
+
     #Enter new search item.
     self.clearField("xpath", "Search_item")
     self.writeTextField("xpath", "New_search_item")
     self.clickOn("xpath", "Search_button")
     self.wait(5)    
     self.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-
 
   def tearDown(self):
     self.teardown()
