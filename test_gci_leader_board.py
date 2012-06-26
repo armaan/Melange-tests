@@ -21,10 +21,10 @@ import unittest
 
 from melange_functional_actions import *
 
-
 class GCILeaderboardTest(unittest.TestCase, FunctionalTestCase):
 
   def setUp(self):
+
     FunctionalTestCase.__init__(self)
     self.setup()
     self.getParameters('/home/syed/Desktop/testdata_melange.xls', 'GCI_Leaderboard_Test')    
