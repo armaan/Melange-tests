@@ -163,31 +163,44 @@ class ProfilePageTest(unittest.TestCase, FunctionalTestCase):
         if text == "Data saved successfully.":
           pass
   
+    #Enter new public name.
     self.wait(2)
     self.clearField("id", "Public_name")
     self.wait(2) 
     self.writeTextField("id", "New_public_name")
+    
+    #Enter new IM handle.
     self.wait(2)     
     self.clearField("id", "Im_handle")
     self.wait(2)     
     self.writeTextField("id", "New_im_handle")
+
+    #Enter new IM network.
     self.wait(2)
     self.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")     
     self.clearField("id", "Im_network")
     self.wait(2)     
     self.writeTextField("id", "New_im_network")
+
+    #Enter new homepage url.
     self.wait(2)     
     self.clearField("id", "Home_page_url")
     self.wait(3)     
     self.writeTextField("id", "New_homepage_url")
-    self.wait(3)     
+    self.wait(3)
+
+    #Enter new Blog url.     
     self.clearField("id", "Blog_url")
     self.wait(3) 
     self.writeTextField("id", "New_blog_url")
     self.wait(3)
-    self.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")    
+    self.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+
+    #Enter new T_shirt size.   
     self.wait(3) 
     self.setDropDownList("New_t_shirt_size")
+
+    #Enter new phone number.
     self.wait(3) 
     self.clearField("xpath", "Phone")
     self.wait(3) 
