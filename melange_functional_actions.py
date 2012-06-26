@@ -284,7 +284,6 @@ class FunctionalTestCase(object):
     else:
       raise NoSuchElementException    
 
-
   def takeScreenshot(self):
     """Take screenshot.
     """
