@@ -45,17 +45,26 @@ class AboutPageTest(unittest.TestCase, FunctionalTestCase):
     #Assert message about GSoC.
     self.assertText("About_GSoC")
 
+    #Assert "Timeline" link.
     self.assertLink("Timeline")
-    self.assertLink("Frequently Asked Questions")
-    self.assertLink("Internet Relay Chat (IRC)")
-    self.assertLink("mailing lists")
-    self.assertLink("social networking sites")
-    self.assertLink("Google Open Source Blog")
 
+    #Assert "Frequently Asked Questions" link.
+    self.assertLink("Frequently Asked Questions")
+
+    #Assert "Internet Relay Chat (IRC)" link.
+    self.assertLink("Internet Relay Chat (IRC)")
+
+    #Assert "mailing lists" link.
+    self.assertLink("mailing lists")
+
+    #Assert "social networking sites" link.
+    self.assertLink("social networking sites")
+
+    #Assert "Google Open Source Blog" link.    
+    self.assertLink("Google Open Source Blog")
 
 def tearDown(self):
     self.teardown()
-
 
 if __name__ == "__main__":
   unittest.main()    
