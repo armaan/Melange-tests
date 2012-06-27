@@ -269,7 +269,7 @@ class FunctionalTestCase(object):
     self.clearField("xpath", element)
     self.Browser.find_element_by_xpath(self.obj_id[element]).send_keys(val)
 
-  def waitAndClick(self, sec, id_type="", click_element = ""):
+  def waitAndClick(self, sec, id_type="", click_element=""):
     """ wait and click on a particular element.
 
     Args:
@@ -283,7 +283,21 @@ class FunctionalTestCase(object):
     elif id_type == "xpath":
       self.Browser.find_element_by_xpath(self.obj_id[click_element]).click()
     else:
-      raise NoSuchElementException    
+      raise NoSuchElementException
+
+  def checkRegistrationSuccess(self, flash_message=""):
+    """Check Message from the melange if student data is saved successfully.
+
+    Args:
+      flash_message: This is the web element which gets displayed and show
+                     message if data is saved successfully.
+    """
+    if self.isElementDisplayed(5, flash_message) is True:
+      text = self.Browser.find_element_by_xpath(self.obj_id[flash_message]).text
+      if text == self.obj_val[flash_message]:  
+        self.assertError(text)
+      if text == "Data saved successfully.":
+        pass
 
   def takeScreenshot(self):
     """Take screenshot.
