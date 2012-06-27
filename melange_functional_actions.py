@@ -299,10 +299,10 @@ class FunctionalTestCase(object):
       if text == "Data saved successfully.":
         pass
 
-  def takeScreenshot(self):
+  def takeScreenshot(self, path=""):
     """Take screenshot.
     """
-    self.Browser.save_screenshot("Melange.png")
+    self.Browser.save_screenshot(path)
 
   def setup(self):
     """Create a Browser Instance.
@@ -313,7 +313,7 @@ class FunctionalTestCase(object):
     """Take a screenshot and close the browser.
     """
     self.wait(2)
-    self.takeScreenshot()
+    self.takeScreenshot("./tests/functional/Melange.png")
     self.Browser.close()
 
   def loginOnLocalhost(self):
