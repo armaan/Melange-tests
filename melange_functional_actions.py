@@ -242,7 +242,8 @@ class FunctionalTestCase(object):
     Args:
       sec: Number of seconds script should wait.
       element_displayed: A particular element which we want to check if it is 
-                         displayed. Return True if it is present else return false.
+                         displayed.Return True if it is present else return false.
+                         if it is not displayed just pass and continue the execution.
     """   
     self.wait(sec)
     try:
