@@ -27,7 +27,7 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTestCase):
   def setUp(self):
     FunctionalTestCase.__init__(self)
     self.setup()
-    self.getParameters("./tests/functional/testdata_melange.xls", "GSOC_Student")    
+    self.getParameters(self.test['data_source'], self.test['test_gsoc_student_registration'])    
      
   def testForTryingToRegisterAsAStudent(self):
 
@@ -175,4 +175,9 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTestCase):
     
   def tearDown(self):
     self.teardown()
+
+
+if __name__ == "__main__":
+  unittest.main()
+
 
