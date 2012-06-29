@@ -308,7 +308,6 @@ class FunctionalTestCase(object):
     parser.read("config.cfg")
     for section_name in parser.sections():
       self.test = dict(self.test.items() + parser.items(section_name))
-    print self.test
 
     
   def takeScreenshot(self, path=""):
