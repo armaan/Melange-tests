@@ -17,6 +17,7 @@
 """Base module for writing functional test scripts.
 """
 
+import ConfigParser
 import random
 import string
 import time
@@ -35,6 +36,7 @@ class FunctionalTestCase(object):
   def __init__(self):
     self.obj_id = {}
     self.obj_val = {}
+    self.test = {}
   
   def getParameters(self, name_of_workbook, name_of_sheet):
     """ Read the test data from excel sheets.
@@ -269,7 +271,7 @@ class FunctionalTestCase(object):
     self.clearField("xpath", element)
     self.Browser.find_element_by_xpath(self.obj_id[element]).send_keys(val)
 
-  def waitAndClick(self, sec, id_type="", click_element = ""):
+  def waitAndClick(self, sec, id_type="", click_element=""):
     """ wait and click on a particular element.
 
     Args:
@@ -283,23 +285,49 @@ class FunctionalTestCase(object):
     elif id_type == "xpath":
       self.Browser.find_element_by_xpath(self.obj_id[click_element]).click()
     else:
-      raise NoSuchElementException    
+      raise NoSuchElementException
 
-  def takeScreenshot(self):
+  def checkRegistrationSuccess(self, flash_message=""):
+    """Check Message from the melange if student data is saved successfully.
+
+    Args:
+      flash_message: This is the web element which gets displayed and show
+                     message if data is saved successfully.
+    """
+    if self.isElementDisplayed(5, flash_message) is True:
+      text = self.Browser.find_element_by_xpath(self.obj_id[flash_message]).text
+      if text == self.obj_val[flash_message]:  
+        self.assertError(text)
+      if text == "Data saved successfully.":
+        pass
+
+  def populate_config(self):
+    """Populate user defined configuration details from config.cfg file.
+    """
+    parser = ConfigParser.SafeConfigParser()
+    parser.read("config.cfg")
+    for section_name in parser.sections():
+      self.test = dict(self.test.items() + parser.items(section_name))
+    print self.test
+
+    
+  def takeScreenshot(self, path=""):
     """Take screenshot.
     """
-    self.Browser.save_screenshot("Melange.png")
+    self.Browser.save_screenshot(path)
 
   def setup(self):
     """Create a Browser Instance.
+       Populate test configuration details.
     """
     self.Browser = webdriver.Firefox()
+    self.populate_config()
 
   def teardown(self):
     """Take a screenshot and close the browser.
     """
     self.wait(2)
-    self.takeScreenshot()
+    self.takeScreenshot("./tests/functional/Melange.png")
     self.Browser.close()
 
   def loginOnLocalhost(self):
@@ -319,4 +347,3 @@ class FunctionalTestCase(object):
     self.writeTextField("xpath", "Password_for_google_account")
     self.wait(2)    
     self.clickOn("xpath", "Sign_in")
-
