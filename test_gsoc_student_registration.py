@@ -20,31 +20,30 @@
 
 import unittest
 
-from melange_functional_actions import *
-
+from melange_functional_actions import FunctionalTestCase
 
 class StudentRegistrationTest(unittest.TestCase, FunctionalTestCase):
 
   def setUp(self):
     FunctionalTestCase.__init__(self)
     self.setup()
-    self.getParameters('/home/syed/Desktop/testdata_melange.xls', 'TC01')    
+    self.getParameters("./tests/functional/testdata_melange.xls", "GSOC_Student")    
      
   def testForTryingToRegisterAsAStudent(self):
 
-    #Test Url, Change it according to your local dev environment.
+    #Test url, Change it according to your environment.
     self.Browser.get(self.obj_id['Url'])
 
     #Check for the correct browser title.
     self.assertIn("Google Summer of Code", self.Browser.title)
 
-    #Check if "How Google Summer of Code Works" is present.
+    #Check if "How Google Summer of Code Works" is present on home page.
     self.assertText("How Google Summer of Code Works")
   
     #Scroll down.
     self.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
   
-    #Click on Register 
+    #Click on Register.
     self.clickOn("xpath", 'Register_Button')
   
     #For local environment. Clear the field, enter email and click on login.
@@ -55,133 +54,125 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTestCase):
     #self.wait(3) 
     #self.loginByGoogleAccount()
 
-    #Wait for the page load completely, then fill the user name field
-    self.waitAndEnterText(5, "xpath", "Username")
+    #Wait for the page load completely, then fill the user name field.
+    self.waitAndEnterText(5, "xpath", "User_name")
     
-    #Fill the public name field  
+    #Fill the public name field.
     self.writeTextField("id", "Public_name")
     self.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
 
-    #Fill IM network field
+    #Fill IM network field.
     self.writeTextField("id", "Im_network")
 
-    #Fill IM handle field
+    #Fill IM handle field.
     self.writeTextField("id", "Im_handle")
   
-    #Enter a valid home page address
+    #Enter a valid home page address.
     self.writeTextField("id", "Home_page_url")
   
-    #Enter a valid blog address
+    #Enter a valid blog address.
     self.writeTextField("id", "Blog_url")
   
-    #Enter photo url
+    #Enter photo url.
     self.writeTextField("id", "Thumbnail_photo_url")
 
-    #Enter Given Name
+    #Enter Given Name.
     self.writeTextField("id", "First_name")
 
-    #Enter Surname
+    #Enter Surname.
     self.writeTextField("id", "Last_name")
 
-    #Enter Email
+    #Enter Email.
     self.writeTextField("id", "Email")
 
-    #Enter Resedential Street Adress
-    self.writeTextField("id", "Res_street")
+    #Enter Residential Street Address.
+    self.writeTextField("id", "Residential_street")
 
-    #Enter Extra Residential Adress
-    self.writeTextField("id", "Res_street_extra")
+    #Enter Extra Residential Address.
+    self.writeTextField("id", "Residential_street_extra")
 
-    #Enter the City
+    #Enter the City.
     self.writeTextField("id", "City")
 
-    #Enter State
+    #Enter State.
     self.writeTextField("id", "State")
 
-    #Traverse through all the country names and select India From the List
+    #Traverse through all the country names and select a country from the list.
     self.setDropDownList("Country")
     self.wait(2)
 
-    #Enter Postal code
+    #Enter Postal code.
     self.writeTextField("xpath", "Postal_code")    
 
-    #Enter phone nuumber
+    #Enter phone number.
     self.writeTextField("xpath", "Phone")
     
-    #Select publish location
+    #Select publish location.
     self.toggleCheckBox("xpath", "Publish_my_location")
 
-    #Enter Full recipient name  
-    self.writeTextField("xpath", "Full_recepient_name")
+    #Enter Full recipient name. 
+    self.writeTextField("xpath", "Full_recipient_name")
 
-    #Enter Shipping Street Adress
+    #Enter Shipping Street Address.
     self.writeTextField("xpath", "Shipping_street")
 
-    #Enter Extra Shipping Street Adress
+    #Enter Extra Shipping Street Address.
     self.writeTextField("xpath", "Shipping_street_extra")
 
-    #Enter the city name for shipment
+    #Enter the city name for shipment.
     self.writeTextField("xpath", "Shipping_city")
 
-    #Enter State
+    #Enter State.
     self.writeTextField("xpath", "Shipping_state")
   
-    #Traverse through all the country names and select a country From the List
+    #Traverse through all the country names and select a country From the List.
     self.setDropDownList("Shipping_country")    
 
-    #Enter postal code
+    #Enter postal code.
     self.writeTextField("xpath", "Shipping_postal_code")
 
-    #Enter the date of birth
+    #Enter the date of birth.
     self.writeTextField("xpath", "Birth_date")
   
-    #Traverse through the list and select T-shirt Style
+    #Traverse through the list and select T-shirt Style.
     self.setDropDownList("T_shirt_style")    
 
-    #Traverse through the list and select a T-shirt size
+    #Traverse through the list and select a T-shirt size.
     self.setDropDownList("T_shirt_size")
 
-    #Select Gender as female   
+    #Select Gender as female.
     self.setDropDownList("Gender")
 
-    #Fill the text area
+    #Fill the text area.
     self.writeTextField("xpath", "How_did_you_hear_about_gsoc")
 
-    #Unset the checkbox for Notification to new comments
+    #Unset the check box for Notification to new comments.
     self.toggleCheckBox("xpath", "Notify_to_new_public_comments")
  
-    #Enter School Name
+    #Enter School Name.
     self.writeTextField("xpath", "School_name")   
 
-    #Select School Country
+    #Select School Country.
     self.setDropDownList("School_country")
   
-    #Enter Major Subject
+    #Enter Major Subject.
     self.writeTextField("xpath", "Major_subject")
   
-    #Select Degree
+    #Select Degree.
     self.setDropDownList("Degree")
   
-    #Enter Expected Graduation  
+    #Enter Expected Graduation.
     self.writeTextField("xpath", "Expected_graduation")
   
-    #Enter School Homepage URL
+    #Enter School Homepage URL.
     self.writeTextField("xpath", "School_homepage")
  
-    #Submit
+    #Submit.
     self.clickOn("xpath", "Submit_button")
 
-    if self.isElementDisplayed(5, "Data_can_not_be_saved") is True:
-      text = self.Browser.find_element_by_xpath("//*[@id='flash-message']/p").text
-      if text == "Sorry, we could not save your data. Please fix the errors mentioned below.":  
-        self.assertError(text)
-      if text == "Data saved successfully.":
-        pass
+    #Check if data saved successfully.
+    self.checkRegistrationSuccess("Message_from_melange")
     
   def tearDown(self):
     self.teardown()
-
-
-if __name__ == "__main__":
-  unittest.main()
 

@@ -289,6 +289,7 @@ class FunctionalTestCase(object):
 
   def checkRegistrationSuccess(self, flash_message=""):
     """Check Message from the melange if student data is saved successfully.
+<<<<<<< HEAD
 
     Args:
       flash_message: This is the web element which gets displayed and show
@@ -311,6 +312,20 @@ class FunctionalTestCase(object):
     print self.test
 
     
+=======
+
+    Args:
+      flash_message: This is the web element which gets displayed and show
+                     message if data is saved successfully.
+    """
+    if self.isElementDisplayed(5, flash_message) is True:
+      text = self.Browser.find_element_by_xpath(self.obj_id[flash_message]).text
+      if text == self.obj_val[flash_message]:  
+        self.assertError(text)
+      if text == "Data saved successfully.":
+        pass
+
+>>>>>>> cd4cacc36c4b59d3d6ee21e54b589a1a45085e68
   def takeScreenshot(self, path=""):
     """Take screenshot.
     """
