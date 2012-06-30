@@ -35,8 +35,7 @@ class FunctionalTestCase(object):
   def __init__(self):
     self.obj_id = {}
     self.obj_val = {}
-    self.test = {}
-  
+
   def getParameters(self, name_of_workbook, name_of_sheet):
     """ Read the test data from excel sheets.
 
