@@ -17,7 +17,6 @@
 """Base module for writing functional test scripts.
 """
 
-import ConfigParser
 import random
 import string
 import time
@@ -300,15 +299,6 @@ class FunctionalTestCase(object):
         self.assertError(text)
       if text == "Data saved successfully.":
         pass
-
-  def populate_config(self):
-    """Populate user defined configuration details from config.cfg file.
-    """
-    parser = ConfigParser.SafeConfigParser()
-    parser.read("config.cfg")
-    for section_name in parser.sections():
-      self.test = dict(self.test.items() + parser.items(section_name))
-
     
   def takeScreenshot(self, path=""):
     """Take screenshot.
@@ -317,10 +307,8 @@ class FunctionalTestCase(object):
 
   def setup(self):
     """Create a Browser Instance.
-       Populate test configuration details.
     """
     self.Browser = webdriver.Firefox()
-    self.populate_config()
 
   def teardown(self):
     """Take a screenshot and close the browser.
