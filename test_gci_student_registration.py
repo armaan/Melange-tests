@@ -20,7 +20,7 @@
 
 import unittest
 
-from melange_functional_actions import *
+from melange_functional_actions import FunctionalTestCase
 
 
 class StudentRegistrationTest(unittest.TestCase, FunctionalTestCase):
