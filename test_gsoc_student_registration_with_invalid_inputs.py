@@ -22,14 +22,14 @@
 
 import unittest
 
-from melange_functional_actions import *
+from melange_functional_actions import FunctionalTestCase
 
 class NewStudentRegistrationTest(unittest.TestCase, FunctionalTestCase):
 
   def setUp(self):
     FunctionalTestCase.__init__(self)
     self.setup()
-    self.getParameters('/home/syed/Desktop/testdata_melange.xls', 'TC02')
+    self.getParameters('./tests/functional/testdata_melange.xls', 'TC02')
     
   def testForTryingToRegisterWithWrongInputs(self):
     
@@ -278,6 +278,3 @@ class NewStudentRegistrationTest(unittest.TestCase, FunctionalTestCase):
 
   def tearDown(self):
     self.teardown()
-
-if __name__ == "__main__":
-  unittest.main()
