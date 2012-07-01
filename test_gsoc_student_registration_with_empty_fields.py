@@ -16,7 +16,7 @@
 
 import unittest
 
-from melange_functional_actions import *
+from melange_functional_actions import FunctionalTestCase
 
 """ Student registration: Click on submit button and try to submit an empty form.
                           Assert error messages. Fill in mandatory fields and
@@ -28,7 +28,7 @@ class GSoCStudentRegistrationTest(unittest.TestCase, FunctionalTestCase):
   def setUp(self):
     FunctionalTestCase.__init__(self)
     self.setup()
-    self.getParameters('/home/syed/Desktop/testdata_melange.xls', 'TC03')    
+    self.getParameters('./tests/functional/testdata_melange.xls', 'TC03')    
      
   def testForTryingToRegisterAsAStudent(self):
 
@@ -110,19 +110,6 @@ class GSoCStudentRegistrationTest(unittest.TestCase, FunctionalTestCase):
     self.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
     self.clickOn("xpath", "Submit_button")
 
-    """ Check if a student has already registered with this user name.
-        if true change the user name and submit the form again.
-    """
-    if self.isElementDisplayed(5, "Data_can_not_be_saved") is True:
-      text = self.Browser.find_element_by_xpath("//*[@id='flash-message']/p").text
-      if text == "Sorry, we could not save your data. Please fix the errors mentioned below.":  
-        self.assertError(text)
-      if text == "Data saved successfully.":
-        pass
-
 
   def tearDown(self):
     self.teardown()
-
-if __name__ == "__main__":
-  unittest.main()
