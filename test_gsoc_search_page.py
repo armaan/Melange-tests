@@ -24,13 +24,11 @@ from melange_functional_actions import *
 class SearchPageTest(unittest.TestCase, FunctionalTestCase):
   
   def setUp(self):
-
     FunctionalTestCase.__init__(self)
     self.setup()
     self.getParameters("./tests/functional/testdata_melange.xls", "GSOC_Search_Test")
 
-  def test_Search_Page(self):
- 
+  def test_Search_Page(self): 
     #Go to the url where melange is hosted.
     self.Browser.get(self.obj_id['Url'])
 
