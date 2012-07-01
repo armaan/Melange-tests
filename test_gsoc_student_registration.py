@@ -30,7 +30,6 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTestCase):
     self.getParameters("./tests/functional/testdata.xls", "GSoC_Student")    
      
   def testForTryingToRegisterAsAStudent(self):
-
     #Test url, Change it according to your environment.
     self.Browser.get(self.obj_id['Url'])
 
@@ -175,9 +174,4 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTestCase):
     
   def tearDown(self):
     self.teardown()
-
-
-if __name__ == "__main__":
-  unittest.main()
-
 
