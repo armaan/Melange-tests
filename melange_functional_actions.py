@@ -132,7 +132,7 @@ class FunctionalTestCase(object):
     else:
       raise NoSuchElementException   
 
-  def clearFieldAssertErrorMessageAndEnterData(self, error_element , element=""):
+  def clearFieldAssertMessageAndEnterData(self, error_element , element=""):
     """Assert the error message , clear the input field and enter a new value.
 
     Args:
