@@ -20,15 +20,14 @@
 
 import unittest
 
-from melange_functional_actions import *
-
+from melange_functional_actions import FunctionalTestCase
 
 class AcceptedOrganisationsTest(unittest.TestCase, FunctionalTestCase):
 
   def setUp(self):
     FunctionalTestCase.__init__(self)
     self.setup()
-    self.getParameters('/home/syed/Desktop/testdata_melange.xls', 'Accepted_Orgs')    
+    self.getParameters('./tests/functional/testdata_melange.xls', 'Accepted_Orgs')    
      
   def testForAcceptedOrgs(self):
 
