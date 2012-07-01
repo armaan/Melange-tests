@@ -27,7 +27,7 @@ class SearchPageTest(unittest.TestCase, FunctionalTestCase):
 
     FunctionalTestCase.__init__(self)
     self.setup()
-    self.getParameters("/home/syed/Desktop/testdata_melange.xls", "GSOC_Search_Test")
+    self.getParameters("./tests/functional/testdata_melange.xls", "GSOC_Search_Test")
 
   def test_Search_Page(self):
  
@@ -56,7 +56,3 @@ class SearchPageTest(unittest.TestCase, FunctionalTestCase):
 
   def tearDown(self):
     self.teardown()
-
-if __name__ == "__main__":
-  unittest.main()
-     
