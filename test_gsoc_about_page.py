@@ -26,7 +26,7 @@ class AboutPageTest(unittest.TestCase, FunctionalTestCase):
   def setUp(self):
     FunctionalTestCase.__init__(self)
     self.setup()
-    self.getParameters("/home/syed/Desktop/testdata_melange.xls", "GSOC_About_Test")
+    self.getParameters("./tests/functional/testdata_melange.xls", "GSOC_About_Test")
 
   def test_About_Page(self):
     #Test Url, Change it according to your local dev environment.
