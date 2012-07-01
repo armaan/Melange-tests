@@ -27,7 +27,7 @@ class GCIAboutPageTest(unittest.TestCase, FunctionalTestCase):
 
     FunctionalTestCase.__init__(self)
     self.setup()
-    self.getParameters("/home/syed/Desktop/testdata_melange.xls", "GCI_About_Test")
+    self.getParameters("./tests/functional/testdata_melange.xls", "GCI_About_Test")
 
   def test_GCI_About_Page(self):
 
@@ -55,7 +55,3 @@ class GCIAboutPageTest(unittest.TestCase, FunctionalTestCase):
 
   def tearDown(self):
     self.teardown()
-
-if __name__ == "__main__":
-  unittest.main()    
-
