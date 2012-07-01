@@ -31,8 +31,7 @@ class NewStudentRegistrationTest(unittest.TestCase, FunctionalTestCase):
     self.setup()
     self.getParameters('./tests/functional/testdata_melange.xls', 'TC02')
     
-  def testForTryingToRegisterWithWrongInputs(self):
-    
+  def testForTryingToRegisterWithWrongInputs(self):    
     #Test Url, Change it according to your local dev environment.
     self.Browser.get(self.obj_id['Url'])
 
