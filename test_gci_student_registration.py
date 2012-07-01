@@ -28,7 +28,7 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTestCase):
   def setUp(self):
     FunctionalTestCase.__init__(self)
     self.setup()
-    self.getParameters('/home/syed/Desktop/testdata_melange.xls', 'GCI_Student_Registration')    
+    self.getParameters('./tests/functional/testdata_melange.xls', 'GCI_Student_Registration')    
      
   def testForTryingToRegisterAsAStudent(self):
 
