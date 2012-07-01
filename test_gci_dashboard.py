@@ -22,17 +22,14 @@ import unittest
 
 from melange_functional_actions import FunctionalTestCase
 
-
 class GCIDashboardTest(unittest.TestCase, FunctionalTestCase):
 
   def setUp(self):
-
     FunctionalTestCase.__init__(self)
     self.setup()
     self.getParameters('./tests/functional/testdata_melange.xls', 'GCI_Dashboard_Test')    
      
   def test_GCI_Dashboard(self):
-
     #Test Url, Change it according to your local dev environment.
     self.Browser.get(self.obj_id['Url'])
 
