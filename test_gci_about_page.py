@@ -24,13 +24,11 @@ from melange_functional_actions import FunctionalTestCase
 class GCIAboutPageTest(unittest.TestCase, FunctionalTestCase):
   
   def setUp(self):
-
     FunctionalTestCase.__init__(self)
     self.setup()
     self.getParameters("./tests/functional/testdata_melange.xls", "GCI_About_Test")
 
   def test_GCI_About_Page(self):
-
     #Test Url, Change it according to your local dev environment.
     self.Browser.get(self.obj_id['Url'])
 
