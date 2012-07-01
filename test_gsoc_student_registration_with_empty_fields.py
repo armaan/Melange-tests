@@ -110,6 +110,5 @@ class GSoCStudentRegistrationTest(unittest.TestCase, FunctionalTestCase):
     self.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
     self.clickOn("xpath", "Submit_button")
 
-
   def tearDown(self):
     self.teardown()
