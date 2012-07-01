@@ -65,3 +65,4 @@ class AboutPageTest(unittest.TestCase, FunctionalTestCase):
 
   def tearDown(self):
     self.teardown()
+
