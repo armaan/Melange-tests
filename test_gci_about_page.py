@@ -53,3 +53,4 @@ class GCIAboutPageTest(unittest.TestCase, FunctionalTestCase):
 
   def tearDown(self):
     self.teardown()
+
