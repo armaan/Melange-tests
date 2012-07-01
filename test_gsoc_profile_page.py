@@ -19,14 +19,14 @@
 
 import unittest
 
-from melange_functional_actions import *
+from melange_functional_actions import FunctionalTestCase
 
 class ProfilePageTest(unittest.TestCase, FunctionalTestCase):
 
   def setUp(self):
     self.setup()
     FunctionalTestCase.__init__(self)
-    self.getParameters("/home/syed/Desktop/testdata_melange.xls", "GSOC_Profile_test")    
+    self.getParameters("./tests/functional/testdata_melange.xls", "GSOC_Profile_test")    
     #Test Url, Change it according to your local dev environment.
     self.Browser.get(self.obj_id['Url'])
     #Scroll down.
