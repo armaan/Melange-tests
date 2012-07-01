@@ -333,3 +333,4 @@ class FunctionalTestCase(object):
     self.writeTextField("xpath", "Password_for_google_account")
     self.wait(2)    
     self.clickOn("xpath", "Sign_in")
+
