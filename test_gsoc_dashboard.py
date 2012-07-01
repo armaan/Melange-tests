@@ -19,14 +19,14 @@
 
 import unittest
 
-from melange_functional_actions import *
+from melange_functional_actions import FunctionalTestCase
 
 class GsocDashboardTest(unittest.TestCase, FunctionalTestCase):
 
   def setUp(self):
     FunctionalTestCase.__init__(self)
     self.setup()
-    self.getParameters('/home/syed/Desktop/testdata_melange.xls', 'GSOC_Dashboard')    
+    self.getParameters('./tests/functional/testdata_melange.xls', 'GSOC_Dashboard')    
      
   def testForGsocDashboard(self):
     #Test Url, Change it according to your local dev environment.
