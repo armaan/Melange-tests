@@ -208,9 +208,3 @@ class ProfilePageTest(unittest.TestCase, FunctionalTestCase):
    
   def tearDown(self):
     self.teardown()
-
-if __name__ == "__main__":
-  unittest.main()
-  
-
-
