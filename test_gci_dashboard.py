@@ -20,7 +20,7 @@
 
 import unittest
 
-from melange_functional_actions import *
+from melange_functional_actions import FunctionalTestCase
 
 
 class GCIDashboardTest(unittest.TestCase, FunctionalTestCase):
