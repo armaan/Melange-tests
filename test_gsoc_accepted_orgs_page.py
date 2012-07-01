@@ -30,7 +30,6 @@ class AcceptedOrganisationsTest(unittest.TestCase, FunctionalTestCase):
     self.getParameters('./tests/functional/testdata_melange.xls', 'Accepted_Orgs')    
      
   def testForAcceptedOrgs(self):
-
     #Test Url, Change it according to your local dev environment.
     self.Browser.get(self.obj_id['Url'])
 
