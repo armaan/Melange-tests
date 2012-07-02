@@ -76,13 +76,13 @@ class FunctionalTestCase(object):
     Args:
       id_type: Type of identification used to uniquely identify an element.
       element: Particular text field which will be written.
-    """
+    """    
+    web_element=self.obj_id[element]
+    value=self.obj_val[element]
     if id_type == "id":
-      self.Browser.find_element_by_id(self.obj_id[element]).send_keys(\
-                                                      self.obj_val[element])
+      self.Browser.find_element_by_id(web_element).send_keys(value)
     elif id_type == "xpath":
-      self.Browser.find_element_by_xpath(self.\
-                           obj_id[element]).send_keys(self.obj_val[element])
+      self.Browser.find_element_by_xpath(web_element).send_keys(value)
     else:
       raise KeyError 
 
@@ -106,8 +106,7 @@ class FunctionalTestCase(object):
     Args:
       select_opt: The option which should be selected from the drop down list.       
     """
-    selection = self.Browser.find_element_by_xpath\
-                                                  (self.obj_id[select_opt])
+    selection = self.Browser.find_element_by_xpath(self.obj_id[select_opt])
     all_options = selection.find_elements_by_tag_name("option")
     for option in all_options:
       if (option.get_attribute("value") == self.obj_val[select_opt]):
@@ -121,13 +120,13 @@ class FunctionalTestCase(object):
       id_type: Type of identification used to uniquely identify an element.
       element: The field in which we we want to enter some text.      
     """
+    web_element=self.obj_id[element]
+    value=self.obj_val[element]
     self.wait(sec)
     if id_type == "id":
-      self.Browser.find_element_by_id(self.obj_id[element]).send_keys\
-                                                        (self.obj_val[element])
+      self.Browser.find_element_by_id(web_element).send_keys(value)
     elif id_type == "xpath":
-      self.Browser.find_element_by_xpath(self.obj_id[element]).send_keys\
-                                                        (self.obj_val[element])
+      self.Browser.find_element_by_xpath(web_element).send_keys(value)
     else:
       raise KeyError   
 
@@ -197,12 +196,12 @@ class FunctionalTestCase(object):
       text_element: The text which will be checked. 
     """
     txt = self.Browser.find_element_by_xpath(self.obj_id[text_element]).text
+    text_value = self.obj_val[text_element]
     if txt is None:
         msg = "Element %s has no text %s " % (text_element, txt)
         self.assertError(msg)
     if txt != self.obj_val[text_element]:
-        msg = "Element text should be %s. It is %s."\
-                                            % (self.obj_val[text_element], txt)
+        msg = "Element text should be %s. It is %s."% (text_value, txt)
         self.assertError(msg)
 
   def assertMessageAndEnterText(self, error_element=None, input_field=None):
@@ -222,14 +221,14 @@ class FunctionalTestCase(object):
       text_element : the message content which will be checked with the
                      message from the application.      
     """
-    text_msg = self.Browser.find_element_by_xpath(\
-                                               self.obj_id[text_element]).text
+    text_object = self.obj_id[text_element]
+    text_value = self.obj_val[text_element]
+    text_msg = self.Browser.find_element_by_xpath(text_object).text
     if text_msg is None:
         msg = "Element %s has no text %s " % (text_element, text_msg)
         self.assertError(msg)
-    if text_msg not in self.obj_val[text_element]:
-        msg = "Element text should be %s. It is %s." % (self.obj_val[\
-                                                        text_element], text_msg)
+    if text_msg not in text_value:
+        msg = "Element text should be %s. It is %s." % (text_value, text_msg)
         self.assertError(msg)
     if text_msg in self.obj_val[text_element]:
       return True
@@ -244,9 +243,9 @@ class FunctionalTestCase(object):
       displayed just pass and continue the execution.
     """   
     self.wait(sec)
+    display_element = self.obj_id[element_displayed]
     try:
-      if self.Browser.find_element_by_xpath(self.obj_id\
-                                            [element_displayed]).is_displayed():
+      if self.Browser.find_element_by_xpath(display_element).is_displayed():
         return True        
     except:
       return False
