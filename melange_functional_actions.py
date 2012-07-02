@@ -84,7 +84,7 @@ class FunctionalTestCase(object):
       self.Browser.find_element_by_xpath(self.\
                            obj_id[element]).send_keys(self.obj_val[element])
     else:
-      raise TypeError 
+      raise KeyError 
 
   def toggleCheckBox(self, id_type=None, chk_box=None):
     """ Toggle a check box.
@@ -98,7 +98,7 @@ class FunctionalTestCase(object):
     elif id_type == "xpath":
       self.Browser.find_element_by_xpath(self.obj_id[chk_box]).click()
     else:
-      raise TypeError
+      raise KeyError
 
   def setDropDownList(self, select_opt=None):
     """ Selects one option from the drop down list.
@@ -129,7 +129,7 @@ class FunctionalTestCase(object):
       self.Browser.find_element_by_xpath(self.obj_id[element]).send_keys\
                                                         (self.obj_val[element])
     else:
-      raise TypeError   
+      raise KeyError   
 
   def clearFieldAssertMessageEnterData(self, error_element=None, element=None):
     """Assert the error message , clear the input field and enter a new value.
@@ -154,7 +154,7 @@ class FunctionalTestCase(object):
     elif id_type == "xpath":
       self.Browser.find_element_by_xpath(self.obj_id[clear_element]).clear()
     else:
-      raise TypeError   
+      raise KeyError   
  
   def clickOn(self, id_type=None, click_element=None):
     """ Click on the specified element.
@@ -168,7 +168,7 @@ class FunctionalTestCase(object):
     elif id_type == "xpath":
       self.Browser.find_element_by_xpath(self.obj_id[click_element]).click()
     else:
-      raise TypeError
+      raise KeyError
 
   def assertError(self, msg):
     """Print the message and raise assertion error.
@@ -266,7 +266,7 @@ class FunctionalTestCase(object):
     self.clearField("xpath", element)
     self.Browser.find_element_by_xpath(self.obj_id[element]).send_keys(val)
 
-  def waitAndClick(self, sec, id_type=None, click_element=None):
+  def waitAndClick(self, sec=None, id_type=None, click_element=None):
     """ wait and click on a particular element.
 
     Args:
@@ -280,7 +280,7 @@ class FunctionalTestCase(object):
     elif id_type == "xpath":
       self.Browser.find_element_by_xpath(self.obj_id[click_element]).click()
     else:
-      raise TypeError
+      raise KeyError
 
   def checkRegistrationSuccess(self, flash_message=None):
     """Check Message from the melange if student data is saved successfully.
