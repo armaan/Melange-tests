@@ -26,7 +26,7 @@ class GCIAboutPageTest(unittest.TestCase, FunctionalTestCase):
   def setUp(self):
     FunctionalTestCase.__init__(self)
     self.setup()
-    self.getParameters("./tests/functional/testdata_melange.xls", "GCI_About_Test")
+    self.getParameters(self.Data_source, "GCI_About_Test")
 
   def test_GCI_About_Page(self):
     #Test Url, Change it according to your local dev environment.

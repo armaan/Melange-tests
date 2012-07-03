@@ -14,20 +14,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-""" GCI Dasboard: This test case test all the functionality provided to a GCI
-                  student from Dashboard Page.
-"""
-
 import unittest
 
 from melange_functional_actions import FunctionalTestCase
 
 class GCIDashboardTest(unittest.TestCase, FunctionalTestCase):
-
+  """ GCI Dasboard: This test case test all the functionality provided to a GCI
+                  student from Dashboard Page.
+  """
   def setUp(self):
     FunctionalTestCase.__init__(self)
     self.setup()
-    self.getParameters('./tests/functional/testdata_melange.xls', 'GCI_Dashboard_Test')    
+    self.getParameters(self.Data_source, 'GCI_Dashboard_Test')    
      
   def test_GCI_Dashboard(self):
     #Test Url, Change it according to your local dev environment.
@@ -40,7 +38,7 @@ class GCIDashboardTest(unittest.TestCase, FunctionalTestCase):
     self.assertText("How Google Code-In Works")
   
     #Scroll down.
-    self.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    self.scrollDown()
   
     #Click on Register.
     self.clickOn("xpath", "Register_Button")
@@ -52,17 +50,20 @@ class GCIDashboardTest(unittest.TestCase, FunctionalTestCase):
     #Click on submit.
     self.clickOn("xpath", "Submit_age")
   
-    #Test env asks for email id, clear the field, enter email and click on login.
+    #Test env asks for email id,clear the field, enter email and click on login.
     self.wait(5) 
     self.loginOnLocalhost()
-    self.wait(3) 
+    self.wait(3)
+    #For melange app on appengine.
+    #self.wait(3) 
+    #self.loginByGoogleAccount() 
 
     #Wait for the page load completely, then fill the user name field.
     self.waitAndEnterText(5, "xpath", "Username")
 
     #Fill the public name field.  
     self.writeTextField("id", "Public_name")
-    self.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    self.scrollDown()
 
     #Fill IM network field.
     self.writeTextField("id", "Im_network")
@@ -162,12 +163,8 @@ class GCIDashboardTest(unittest.TestCase, FunctionalTestCase):
     #Submit.
     self.clickOn("xpath", "Submit_button")
     
-    if self.isElementDisplayed(5, "Data_can_not_be_saved") is True:
-      text = self.Browser.find_element_by_xpath("//*[@id='flash-message']/p").text
-      if text == "Sorry, we could not save your data. Please fix the errors mentioned below.":  
-        self.assertError(text)
-      if text == "Data saved successfully.":
-        pass
+    #Check if data saved successfully.
+    self.checkRegistrationSuccess("Message_from_melange")
     
     #Click on GCI Dashboard.
     self.wait(5)

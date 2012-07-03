@@ -302,14 +302,16 @@ class FunctionalTestCase(object):
 
   def setup(self):
     """Create a Browser Instance.
-    """
+    """    
+    Data_source = "./tests/functional/testdata_melange.xls"
+    screenshot_dir = "./tests/functional/Melange.png"
     self.Browser = webdriver.Firefox()
 
   def teardown(self):
     """Take a screenshot and close the browser.
     """
     self.wait(2)
-    self.takeScreenshot("./tests/functional/Melange.png")
+    self.takeScreenshot(self.screenshot_dir)
     self.Browser.close()
 
   def loginOnLocalhost(self):

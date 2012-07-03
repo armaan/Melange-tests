@@ -14,20 +14,18 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-""" Accepted Organisations: This test case checks the functionality on Accepted
-                            Organisations Page.
-"""
-
 import unittest
 
 from melange_functional_actions import FunctionalTestCase
 
 class AcceptedOrganisationsTest(unittest.TestCase, FunctionalTestCase):
-
+  """ Accepted Organisations: This test case checks the functionality of GSoC
+      Accepted Organisations Page.
+  """
   def setUp(self):
     FunctionalTestCase.__init__(self)
     self.setup()
-    self.getParameters('./tests/functional/testdata_melange.xls', 'Accepted_Orgs')    
+    self.getParameters(self.Data_source, "Accepted_Orgs")    
      
   def testForAcceptedOrgs(self):
     #Test Url, Change it according to your local dev environment.
@@ -48,12 +46,12 @@ class AcceptedOrganisationsTest(unittest.TestCase, FunctionalTestCase):
     self.clickOn("xpath", "Csv_export")
     self.wait(3)
     self.clickOn("xpath", "Csv_textarea")
-    self.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    self.scrollDown()
     self.clickOn("xpath", "Csv_close")
     self.clearField("xpath", "Search_organisation")
 
     #Check Filters.
-    self.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    self.scrollDown()
     self.clickOn("xpath", "Filter")
     self.wait(3)
     self.setDropDownList("Filter_and_or")
@@ -66,7 +64,7 @@ class AcceptedOrganisationsTest(unittest.TestCase, FunctionalTestCase):
 
     #Reload Grid.
     self.clickOn("xpath", "Reload_grid")
-    self.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    self.scrollDown()
 
     #Check column functionality.
     self.clickOn("xpath", "Column")
@@ -80,7 +78,7 @@ class AcceptedOrganisationsTest(unittest.TestCase, FunctionalTestCase):
     self.clickOn("xpath", "OK")
 
     #Search an organisation.
-    self.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    self.scrollDown()
     self.wait(3)
     self.clearField("xpath", "Search_organisation")
     self.writeTextField("xpath", "Search_organisation")
@@ -89,7 +87,7 @@ class AcceptedOrganisationsTest(unittest.TestCase, FunctionalTestCase):
     self.wait(20)
     self.Browser.get(self.obj_id['Accepted_orgs_url'])
     self.clearField("xpath", "Search_organisation")
-    self.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    self.scrollDown()
 
   def tearDown(self):
     self.teardown()

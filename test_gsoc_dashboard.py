@@ -14,19 +14,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-""" GSoC Dashboard: This test case test the functionality of GSoC Dashboard.
-"""
-
 import unittest
 
 from melange_functional_actions import FunctionalTestCase
 
 class GsocDashboardTest(unittest.TestCase, FunctionalTestCase):
-
+  """ GSoC Dashboard: This test case test the functionality of GSoC Dashboard.
+  """
   def setUp(self):
     FunctionalTestCase.__init__(self)
     self.setup()
-    self.getParameters('./tests/functional/testdata_melange.xls', 'GSOC_Dashboard')    
+    self.getParameters(self.Data_source, "GSOC_Dashboard")    
      
   def testForGsocDashboard(self):
     #Test Url, Change it according to your local dev environment.
@@ -39,10 +37,10 @@ class GsocDashboardTest(unittest.TestCase, FunctionalTestCase):
     self.assertText("How Google Summer of Code Works")
   
     #Scroll down.
-    self.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    self.scrollDown()
   
     #Click on Register 
-    self.clickOn("xpath", 'Register_Button')
+    self.clickOn("xpath", "Register_Button")
   
     #For local environment. Clear the field, enter email and click on login.
     self.wait(3) 
@@ -57,7 +55,7 @@ class GsocDashboardTest(unittest.TestCase, FunctionalTestCase):
     
     #Fill the public name field  
     self.writeTextField("id", "Public_name")
-    self.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    self.scrollDown()
 
     #Fill IM network field
     self.writeTextField("id", "Im_network")
@@ -168,12 +166,8 @@ class GsocDashboardTest(unittest.TestCase, FunctionalTestCase):
     #Submit
     self.clickOn("xpath", "Submit_button")
 
-    if self.isElementDisplayed(5, "Data_can_not_be_saved") is True:
-      text = self.Browser.find_element_by_xpath("//*[@id='flash-message']/p").text
-      if text == "Sorry, we could not save your data. Please fix the errors mentioned below.":  
-        self.assertError(text)
-      if text == "Data saved successfully.":
-        pass
+    #Check if data saved successfully.
+    self.checkRegistrationSuccess("Message_from_melange")
 
     #Click on GSoC Dashboard.
     self.wait(5)

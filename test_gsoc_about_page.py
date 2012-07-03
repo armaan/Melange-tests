@@ -14,19 +14,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-""" This test case test the functionality of GSoC About Page.
-"""
-
 import unittest
 
 from melange_functional_actions import FunctionalTestCase
 
 class AboutPageTest(unittest.TestCase, FunctionalTestCase):
-  
+  """ This test case test the functionality of GSoC About Page.
+  """  
   def setUp(self):
     FunctionalTestCase.__init__(self)
     self.setup()
-    self.getParameters("./tests/functional/testdata_melange.xls", "GSOC_About_Test")
+    self.getParameters(self.Data_source, "GSOC_About_Test")
 
   def test_About_Page(self):
     #Test Url, Change it according to your local dev environment.

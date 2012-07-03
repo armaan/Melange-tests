@@ -14,22 +14,20 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-""" Student registration: A student registers himself/herself for GCI by entering
-                          all correct values in the registration form.
-"""
-
 import unittest
 
 from melange_functional_actions import FunctionalTestCase
 
-class StudentRegistrationTest(unittest.TestCase, FunctionalTestCase):
-
+class GCIStudentRegistrationTest(unittest.TestCase, FunctionalTestCase):
+  """GCI Student registration: A student registers himself/herself for GCI by 
+     entering all correct values in the registration form.
+  """
   def setUp(self):
     FunctionalTestCase.__init__(self)
     self.setup()
-    self.getParameters('./tests/functional/testdata_melange.xls', 'GCI_Student_Registration')    
+    self.getParameters(self.Data_source, "GCI_Student_Registration")    
      
-  def testForTryingToRegisterAsAStudent(self):
+  def testGCIRegisterAsAStudent(self):
     #Test Url, Change it according to your local dev environment.
     self.Browser.get(self.obj_id['Url'])
 
@@ -40,7 +38,7 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTestCase):
     self.assertText("How Google Code-In Works")
   
     #Scroll down.
-    self.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    self.scrollDown()
   
     #Click on Register. 
     self.clickOn("xpath", "Register_Button")
@@ -52,17 +50,20 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTestCase):
     #Click on submit.
     self.clickOn("xpath", "Submit_age")
   
-    #Test env asks for email id, clear the field, enter email and click on login.
+    #Test env asks for email id,clear the field, enter email and click on login.
     self.wait(3) 
     self.loginOnLocalhost()
-    self.wait(3) 
+    self.wait(3)
+    #For melange app on appengine.
+    #self.wait(3) 
+    #self.loginByGoogleAccount() 
 
     #Wait for the page load completely, then fill the user name field.
     self.waitAndEnterText(5, "xpath", "Username")
 
     #Fill the public name field.  
     self.writeTextField("id", "Public_name")
-    self.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    self.scrollDown()
 
     #Fill IM network field.
     self.writeTextField("id", "Im_network")
@@ -89,10 +90,10 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTestCase):
     #Enter Email.
     self.writeTextField("id", "Email")
 
-    #Enter Resedential Street Adress.
+    #Enter Residential Street Address.
     self.writeTextField("id", "Res_street")
 
-    #Enter Extra Residential Adress.
+    #Enter Extra Residential Address.
     self.writeTextField("id", "Res_street_extra")
 
     #Enter the City.
@@ -112,12 +113,12 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTestCase):
     self.writeTextField("xpath", "Phone")
     
     #Enter Full recipient name. 
-    self.writeTextField("xpath", "Full_recepient_name")
+    self.writeTextField("xpath", "Full_recipient_name")
 
-    #Enter Shipping Street Adress.
+    #Enter Shipping Street Address.
     self.writeTextField("xpath", "Shipping_street")
 
-    #Enter Extra Shipping Street Adress.
+    #Enter Extra Shipping Street Address.
     self.writeTextField("xpath", "Shipping_street_extra")
 
     #Enter the city name for shipment.
@@ -161,13 +162,9 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTestCase):
 
     #Submit.
     self.clickOn("xpath", "Submit_button")
-    
-    if self.isElementDisplayed(5, "Data_can_not_be_saved") is True:
-      text = self.Browser.find_element_by_xpath("//*[@id='main']/div/div[4]/div[1]/p").text
-      if text == "Sorry, we could not save your data. Please fix the errors mentioned below.":  
-        self.assertError(text)
-      if text == "Data saved successfully.":
-        pass
+
+    #Check if data saved successfully.
+    self.checkRegistrationSuccess("Message_from_melange")
     
   def tearDown(self):
     self.teardown()

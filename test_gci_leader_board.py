@@ -26,7 +26,7 @@ class GCILeaderboardTest(unittest.TestCase, FunctionalTestCase):
   def setUp(self):
     FunctionalTestCase.__init__(self)
     self.setup()
-    self.getParameters('./tests/functional/testdata_melange.xls', 'GCI_Leaderboard_Test')    
+    self.getParameters(self.Data_source, "GCI_Leaderboard_Test")    
      
   def test_GCI_Leaderboard(self):
     #Test Url, Change it according to your local dev environment.

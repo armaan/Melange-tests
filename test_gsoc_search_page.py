@@ -14,19 +14,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-""" This test case test the functionality of GSoC Search Page.
-"""
-
 import unittest
 
-from melange_functional_actions import *
+from melange_functional_actions import FunctionalTestCase
 
 class SearchPageTest(unittest.TestCase, FunctionalTestCase):
-  
+  """ This test case test the functionality of GSoC Search Page.
+  """ 
   def setUp(self):
     FunctionalTestCase.__init__(self)
     self.setup()
-    self.getParameters("./tests/functional/testdata_melange.xls", "GSOC_Search_Test")
+    self.getParameters(self.Data_source, "GSOC_Search_Test")
 
   def test_Search_Page(self): 
     #Go to the url where melange is hosted.
@@ -42,15 +40,17 @@ class SearchPageTest(unittest.TestCase, FunctionalTestCase):
 
     #Click on Search
     self.clickOn("xpath", "Search_button")
-    self.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    self.scrollDown()
     self.wait(5)
 
     #Enter new search item.
     self.clearField("xpath", "Search_item")
     self.writeTextField("xpath", "New_search_item")
+
+    #Click to Search.
     self.clickOn("xpath", "Search_button")
     self.wait(5)    
-    self.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    self.scrollDown()
 
   def tearDown(self):
     self.teardown()
