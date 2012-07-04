@@ -14,17 +14,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-""" GCI Leaderboard: This test case checks the functionality of Leaderboard.
-"""
-
-import unittest
-
 from melange_functional_actions import FunctionalTestCase
 
-class GCILeaderboardTest(unittest.TestCase, FunctionalTestCase):
-
+class GCILeaderboardTest(FunctionalTestCase):
+  """ GCI Leaderboard: This test case checks the functionality of Leaderboard.
+  """
   def setUp(self):
-    FunctionalTestCase.__init__(self)
+    self.init()
     self.setup()
     self.getParameters(self.Data_source, "GCI_Leaderboard_Test")    
      
@@ -37,7 +33,7 @@ class GCILeaderboardTest(unittest.TestCase, FunctionalTestCase):
     self.wait(3)
 
     #Scroll down.
-    self.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    self.scrollDown()
 
     #Click On Leader Board.
     self.clickOn("xpath", "Leader_board")
@@ -72,3 +68,4 @@ class GCILeaderboardTest(unittest.TestCase, FunctionalTestCase):
 
   def tearDown(self):
     self.teardown()
+

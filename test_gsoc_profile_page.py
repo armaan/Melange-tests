@@ -14,38 +14,39 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-""" This test case test the functionality of GSoC Profile Page.
-"""
-
-import unittest
+from selenium.common import exceptions
 
 from melange_functional_actions import FunctionalTestCase
 
-class ProfilePageTest(unittest.TestCase, FunctionalTestCase):
-
+class ProfilePageTest(FunctionalTestCase):
+  """ This test case test the functionality of GSoC Profile Page.
+  """
   def setUp(self):
+    self.init()
     self.setup()
-    FunctionalTestCase.__init__(self)
-    self.getParameters(self.Data_source, "GSOC_Profile_test")    
+    self.getParameters(self.Data_source, "GSOC_Profile_test")   
     #Test Url, Change it according to your local dev environment.
     self.Browser.get(self.obj_id['Url'])
     #Scroll down.
-    self.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    self.scrollDown()
     #Click on Register 
     self.clickOn("xpath", 'Register_Button')
-    #Test env asks for email id, clear the field, enter email and click on login.
+    #Test env asks for email id, enter email and click on login.
     self.wait(3) 
-    self.loginOnLocalhost() 
+    self.loginOnLocalhost()
+    #For melange app on appengine.
+    #self.wait(3) 
+    #self.loginByGoogleAccount()
       
   def test_ProfilePage(self):
-    if self.isElementDisplayed(5, "Username") is True:
+    try:
       self.wait(3) 
       #Wait for the page load completely, then fill the user name field
       self.waitAndEnterText(5, "xpath", "Username")
       
       #Fill the public name field  
       self.writeTextField("id", "Public_name")
-      self.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+      self.scrollDown()
 
       #Fill IM network field
       self.writeTextField("id", "Im_network")
@@ -83,7 +84,7 @@ class ProfilePageTest(unittest.TestCase, FunctionalTestCase):
       #Enter State
       self.writeTextField("id", "State")
 
-      #Traverse through all the country names and select India From the List
+      #Traverse the country names and select India From the List
       self.setDropDownList("Country")
       self.wait(2)
 
@@ -111,7 +112,7 @@ class ProfilePageTest(unittest.TestCase, FunctionalTestCase):
       #Enter State
       self.writeTextField("xpath", "Shipping_state")
   
-      #Traverse through all the country names and select a country From the List
+      #Traverse the country names and select a country From List.
       self.setDropDownList("Shipping_country")      
 
       #Enter postal code
@@ -156,55 +157,52 @@ class ProfilePageTest(unittest.TestCase, FunctionalTestCase):
       #Submit
       self.clickOn("xpath", "Submit_button")
       
-      if self.isElementDisplayed(5, "Data_can_not_be_saved") is True:
-        text = self.Browser.find_element_by_xpath("//*[@id='flash-message']/p").text
-        if text == "Sorry, we could not save your data. Please fix the errors mentioned below.":  
-          self.assertError(text)
-        if text == "Data saved successfully.":
-          pass
-  
-    #Enter new public name.
-    self.wait(2)
-    self.clearField("id", "Public_name")
-    self.wait(2) 
-    self.writeTextField("id", "New_public_name")
-    
-    #Enter new IM handle.
-    self.wait(2)     
-    self.clearField("id", "Im_handle")
-    self.wait(2)     
-    self.writeTextField("id", "New_im_handle")
+      #Check if data saved successfully.
+      self.checkRegistrationSuccess("Message_from_melange")
 
-    #Enter new IM network.
-    self.wait(2)
-    self.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")     
-    self.clearField("id", "Im_network")
-    self.wait(2)     
-    self.writeTextField("id", "New_im_network")
+    except exceptions.NoSuchElementException:
+      #Clear old public name and enter new public name.
+      self.wait(2)
+      self.clearField("id", "Public_name")
+      self.wait(2) 
+      self.writeTextField("id", "New_public_name")
+      
+      #Clear old IM handle and enter new IM handle.
+      self.wait(2)       
+      self.clearField("id", "Im_handle")
+      self.wait(2)       
+      self.writeTextField("id", "New_im_handle")
 
-    #Enter new homepage url.
-    self.wait(2)     
-    self.clearField("id", "Home_page_url")
-    self.wait(3)     
-    self.writeTextField("id", "New_homepage_url")
-    self.wait(3)
+      #Enter new IM network name.
+      self.wait(2)
+      self.scrollDown() 
+      self.clearField("id", "Im_network")
+      self.wait(2)       
+      self.writeTextField("id", "New_im_network")
 
-    #Enter new Blog url.     
-    self.clearField("id", "Blog_url")
-    self.wait(3) 
-    self.writeTextField("id", "New_blog_url")
-    self.wait(3)
-    self.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+      #Enter new homepage url.
+      self.wait(2)       
+      self.clearField("id", "Home_page_url")
+      self.wait(3)       
+      self.writeTextField("id", "New_homepage_url")
+      self.wait(3)
 
-    #Enter new T_shirt size.   
-    self.wait(3) 
-    self.setDropDownList("New_t_shirt_size")
+      #Enter new Blog url.       
+      self.clearField("id", "Blog_url")
+      self.wait(3) 
+      self.writeTextField("id", "New_blog_url")
+      self.wait(3)
+      self.scrollDown()
 
-    #Enter new phone number.
-    self.wait(3) 
-    self.clearField("xpath", "Phone")
-    self.wait(3) 
-    self.writeTextField("xpath", "New_phone_number")
+      #Enter new T_shirt size.   
+      self.wait(3) 
+      self.setDropDownList("New_t_shirt_size")
+
+      #Enter new phone number.
+      self.wait(3) 
+      self.clearField("xpath", "Phone")
+      self.wait(3) 
+      self.writeTextField("xpath", "New_phone_number")
    
   def tearDown(self):
     self.teardown()

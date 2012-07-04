@@ -17,14 +17,12 @@
 """ This test case checks links and text present on GCI About Page.
 """
 
-import unittest
-
 from melange_functional_actions import FunctionalTestCase
 
-class GCIAboutPageTest(unittest.TestCase, FunctionalTestCase):
+class GCIAboutPageTest(FunctionalTestCase):
   
   def setUp(self):
-    FunctionalTestCase.__init__(self)
+    self.init()
     self.setup()
     self.getParameters(self.Data_source, "GCI_About_Test")
 

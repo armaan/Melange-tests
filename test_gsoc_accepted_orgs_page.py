@@ -14,16 +14,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
-
 from melange_functional_actions import FunctionalTestCase
 
-class AcceptedOrganisationsTest(unittest.TestCase, FunctionalTestCase):
-  """ Accepted Organisations: This test case checks the functionality of GSoC
-      Accepted Organisations Page.
+class AcceptedOrganisationsTest(FunctionalTestCase):
+  """ Accepted Organisations: This test case checks the functionality 
+      of GSoC Accepted Organisations Page.
   """
   def setUp(self):
-    FunctionalTestCase.__init__(self)
+    self.init()
     self.setup()
     self.getParameters(self.Data_source, "Accepted_Orgs")    
      
@@ -61,6 +59,7 @@ class AcceptedOrganisationsTest(unittest.TestCase, FunctionalTestCase):
     self.setDropDownList("Filter_type2")
     self.writeTextField("xpath", "Enter_filter2_value")
     self.clickOn("xpath", "Find")
+    self.wait(3)
 
     #Reload Grid.
     self.clickOn("xpath", "Reload_grid")
@@ -72,7 +71,9 @@ class AcceptedOrganisationsTest(unittest.TestCase, FunctionalTestCase):
     self.clickOn("xpath", "Remove_all")
     self.wait(3)
     self.clickOn("xpath", "Name")
+    self.wait(3)
     self.clickOn("xpath", "Tag")
+    self.wait(3)
     self.clickOn("xpath", "Ideas")
     self.wait(3)
     self.clickOn("xpath", "OK")

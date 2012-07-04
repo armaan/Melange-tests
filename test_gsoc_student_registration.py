@@ -14,20 +14,16 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-""" Student registration: A student registers himself/herself by entering all
-                          correct values in the registration form.
-"""
-
-import unittest
-
 from melange_functional_actions import FunctionalTestCase
 
-class StudentRegistrationTest(unittest.TestCase, FunctionalTestCase):
-
+class StudentRegistrationTest(FunctionalTestCase):
+  """ Student registration: A student registers himself/herself by 
+      entering all correct values in the registration form.
+  """
   def setUp(self):
-    FunctionalTestCase.__init__(self)
+    self.init()
     self.setup()
-    self.getParameters("./tests/functional/testdata.xls", "GSoC_Student")    
+    self.getParameters(self.Data_source ,"GSOC_Student")    
      
   def testForTryingToRegisterAsAStudent(self):
     #Test url, Change it according to your environment.
@@ -40,7 +36,7 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTestCase):
     self.assertText("How Google Summer of Code Works")
   
     #Scroll down.
-    self.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    self.scrollDown()
   
     #Click on Register.
     self.clickOn("xpath", 'Register_Button')
@@ -58,7 +54,7 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTestCase):
     
     #Fill the public name field.
     self.writeTextField("id", "Public_name")
-    self.Browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    self.scrollDown()
 
     #Fill IM network field.
     self.writeTextField("id", "Im_network")
@@ -96,7 +92,7 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTestCase):
     #Enter State.
     self.writeTextField("id", "State")
 
-    #Traverse through all the country names and select a country from the list.
+    #Traverse through country names and select a country from the list.
     self.setDropDownList("Country")
     self.wait(2)
 
@@ -124,7 +120,7 @@ class StudentRegistrationTest(unittest.TestCase, FunctionalTestCase):
     #Enter State.
     self.writeTextField("xpath", "Shipping_state")
   
-    #Traverse through all the country names and select a country From the List.
+    #Traverse through country names and select a country From the List.
     self.setDropDownList("Shipping_country")    
 
     #Enter postal code.

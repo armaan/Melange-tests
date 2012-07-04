@@ -14,16 +14,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
-
 from melange_functional_actions import FunctionalTestCase
 
-class GCIStudentRegistrationTest(unittest.TestCase, FunctionalTestCase):
+class GCIStudentRegistrationTest(FunctionalTestCase):
   """GCI Student registration: A student registers himself/herself for GCI by 
      entering all correct values in the registration form.
   """
   def setUp(self):
-    FunctionalTestCase.__init__(self)
+    self.init()
     self.setup()
     self.getParameters(self.Data_source, "GCI_Student_Registration")    
      
@@ -50,7 +48,7 @@ class GCIStudentRegistrationTest(unittest.TestCase, FunctionalTestCase):
     #Click on submit.
     self.clickOn("xpath", "Submit_age")
   
-    #Test env asks for email id,clear the field, enter email and click on login.
+    #Test env asks for email id, enter email and click on login.
     self.wait(3) 
     self.loginOnLocalhost()
     self.wait(3)
@@ -91,10 +89,10 @@ class GCIStudentRegistrationTest(unittest.TestCase, FunctionalTestCase):
     self.writeTextField("id", "Email")
 
     #Enter Residential Street Address.
-    self.writeTextField("id", "Res_street")
+    self.writeTextField("id", "Residential_street")
 
     #Enter Extra Residential Address.
-    self.writeTextField("id", "Res_street_extra")
+    self.writeTextField("id", "Residential_street_extra")
 
     #Enter the City.
     self.writeTextField("id", "City")
@@ -102,7 +100,7 @@ class GCIStudentRegistrationTest(unittest.TestCase, FunctionalTestCase):
     #Enter State.
     self.writeTextField("id", "State")
 
-    #Traverse through all the country names and select India From the List.
+    #Traverse through country names and select country From the List.
     self.setDropDownList("Country")
     self.wait(2)
 
@@ -127,7 +125,7 @@ class GCIStudentRegistrationTest(unittest.TestCase, FunctionalTestCase):
     #Enter State.
     self.writeTextField("xpath", "Shipping_state")
   
-    #Traverse through all the country names and select a country From the List.
+    #Traverse through country names and select a country From the List.
     self.setDropDownList("Shipping_country")    
 
     #Enter postal code.

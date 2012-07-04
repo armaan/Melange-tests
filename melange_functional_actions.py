@@ -17,21 +17,22 @@
 """Base module for writing functional test scripts.
 """
 
-import logging
 import random
 import string
 import time
+import sys
+import unittest
 
 from selenium import webdriver
 from selenium.common import exceptions
 
 import xlrd
 
-class FunctionalTestCase(object):  
+class FunctionalTestCase(unittest.TestCase):  
   """ Base Class for all the Melange Functional Tests.
       Contains actions which will be used in writing Test scripts.
   """
-  def __init__(self):
+  def init(self):
     self.obj_id = {}
     self.obj_val = {}
 
@@ -42,14 +43,11 @@ class FunctionalTestCase(object):
       name_of_workbook: Workbook from which the test data will be imported.
       name_of_sheet: Particular sheet whose contents will be imported.
     """
-    log = logging.getLogger("melange_functional_actions")
-    log.setLevel(logging.DEBUG)
-    logging.basicConfig()
     try:
-      workbook = xlrd.open_workbook(name_of_workbook)
-    except IOError as e:
-      log.debug("Workbook %s not found" % (name_of_workbook))
-      raise e               
+      workbook = xlrd.open_workbook(name_of_workbook)              
+    except IOError:
+      self.teardown()
+      sys.exit("Workbook \"%s\" not found" % name_of_workbook)
     #Get a sheet by name.
     sheet = workbook.sheet_by_name(name_of_sheet)                        
     #Pulling all the element values from spreadsheet.
@@ -67,7 +65,6 @@ class FunctionalTestCase(object):
     Args:
       sec: Number of seconds for which the script should wait.
     """
-    print "waiting for page to load for %s seconds " % sec
     time.sleep(sec)
 
   def writeTextField(self, id_type=None, element=None):
@@ -247,9 +244,10 @@ class FunctionalTestCase(object):
     try:
       if self.Browser.find_element_by_xpath(display_element).is_displayed():
         return True        
-    except:
-      return False
-      pass
+    except exceptions.NoSuchElementException:
+      msg = "The element %s is not displayed" % display_element
+      self.assertError(msg)
+      
 
   def fillRandomValue(self, element=None):
     """ It takes a value , add random string at the end and fill it in the form.
@@ -300,11 +298,17 @@ class FunctionalTestCase(object):
     """
     self.Browser.save_screenshot(path)
 
+  def scrollDown(self):
+    """Sroll Down.
+    """
+    self.Browser.execute_script("window.\
+                                 scrollTo(0, document.body.scrollHeight);")
+
   def setup(self):
     """Create a Browser Instance.
     """    
-    Data_source = "./tests/functional/testdata_melange.xls"
-    screenshot_dir = "./tests/functional/Melange.png"
+    self.Data_source = "./tests/functional/testdata_melange.xls"
+    self.screenshot_dir = "./tests/functional/Melange.png"
     self.Browser = webdriver.Firefox()
 
   def teardown(self):

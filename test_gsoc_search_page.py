@@ -14,15 +14,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import unittest
-
 from melange_functional_actions import FunctionalTestCase
 
-class SearchPageTest(unittest.TestCase, FunctionalTestCase):
+class SearchPageTest(FunctionalTestCase):
   """ This test case test the functionality of GSoC Search Page.
   """ 
   def setUp(self):
-    FunctionalTestCase.__init__(self)
+    self.init()
     self.setup()
     self.getParameters(self.Data_source, "GSOC_Search_Test")
 
