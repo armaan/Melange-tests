@@ -17,16 +17,18 @@
 from melange_functional_actions import FunctionalTestCase
 
 class GCILeaderboardTest(FunctionalTestCase):
-  """ GCI Leaderboard: This test case checks the functionality of Leaderboard.
+  """GCI Leaderboard: This test script checks the functionality of Leaderboard.
   """
   def setUp(self):
     self.init()
-    self.setup()
-    self.getParameters(self.Data_source, "GCI_Leaderboard_Test")    
+    self.setup()    
      
-  def test_GCI_Leaderboard(self):
+  def testGCILeaderboard(self):
+    #Load test data.
+    self.getParameters(self.Data_source, "GCI_Leaderboard_Test")
+
     #Test Url, Change it according to your local dev environment.
-    self.Browser.get(self.obj_id['Url'])
+    self.Browser.get(self.obj_id["Url"])
 
     #Check for the correct browser title.
     self.assertIn("Google Code In Contest", self.Browser.title)
@@ -35,11 +37,11 @@ class GCILeaderboardTest(FunctionalTestCase):
     #Scroll down.
     self.scrollDown()
 
-    #Click On Leader Board.
+    #Click On leader board.
     self.clickOn("xpath", "Leader_board")
     self.wait(3)
 
-    #Assert Leader Board text.
+    #Assert leader board text.
     self.assertText("Leader_board_text")
     self.wait(3)
 

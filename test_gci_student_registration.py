@@ -22,12 +22,14 @@ class GCIStudentRegistrationTest(FunctionalTestCase):
   """
   def setUp(self):
     self.init()
-    self.setup()
-    self.getParameters(self.Data_source, "GCI_Student_Registration")    
+    self.setup()    
      
   def testGCIRegisterAsAStudent(self):
+    #Load test data.
+    self.getParameters(self.Data_source, "GCI_Student_Registration")
+
     #Test Url, Change it according to your local dev environment.
-    self.Browser.get(self.obj_id['Url'])
+    self.Browser.get(self.obj_id["Url"])
 
     #Check for the correct browser title.
     self.assertIn("Google Code In Contest", self.Browser.title)
@@ -75,36 +77,36 @@ class GCIStudentRegistrationTest(FunctionalTestCase):
     #Enter a valid blog address.
     self.writeTextField("id", "Blog_url")
   
-    #Set Avatar Color.
+    #Set Avatar color.
     self.wait(2)
     self.setDropDownList("Avatar")
 
-    #Enter Given Name.
+    #Enter given name.
     self.writeTextField("id", "First_name")
 
-    #Enter Surname.
+    #Enter surname.
     self.writeTextField("id", "Last_name")
 
-    #Enter Email.
+    #Enter email.
     self.writeTextField("id", "Email")
 
-    #Enter Residential Street Address.
+    #Enter residential street address.
     self.writeTextField("id", "Residential_street")
 
-    #Enter Extra Residential Address.
+    #Enter extra residential address.
     self.writeTextField("id", "Residential_street_extra")
 
-    #Enter the City.
+    #Enter the city.
     self.writeTextField("id", "City")
 
-    #Enter State.
+    #Enter state.
     self.writeTextField("id", "State")
 
-    #Traverse through country names and select country From the List.
+    #Traverse through country names and select country from the list.
     self.setDropDownList("Country")
     self.wait(2)
 
-    #Enter Postal code
+    #Enter postal code.
     self.writeTextField("xpath", "Postal_code")    
 
     #Enter phone number.
@@ -113,31 +115,31 @@ class GCIStudentRegistrationTest(FunctionalTestCase):
     #Enter Full recipient name. 
     self.writeTextField("xpath", "Full_recipient_name")
 
-    #Enter Shipping Street Address.
+    #Enter shipping street address.
     self.writeTextField("xpath", "Shipping_street")
 
-    #Enter Extra Shipping Street Address.
+    #Enter extra shipping street address.
     self.writeTextField("xpath", "Shipping_street_extra")
 
     #Enter the city name for shipment.
     self.writeTextField("xpath", "Shipping_city")
 
-    #Enter State.
+    #Enter state.
     self.writeTextField("xpath", "Shipping_state")
   
-    #Traverse through country names and select a country From the List.
+    #Traverse through country names and select a country from the list.
     self.setDropDownList("Shipping_country")    
 
     #Enter postal code.
     self.writeTextField("xpath", "Shipping_postal_code")
 
-    #Traverse through the list and select T-shirt Style.
+    #Traverse through the list and select t-shirt Style.
     self.setDropDownList("T_shirt_style")    
 
-    #Traverse through the list and select a T-shirt size.
+    #Traverse through the list and select a t-shirt size.
     self.setDropDownList("T_shirt_size")
 
-    #Select Gender as female.  
+    #Select gender as female.  
     self.setDropDownList("Gender")
 
     #Fill the text area.
@@ -146,16 +148,16 @@ class GCIStudentRegistrationTest(FunctionalTestCase):
     #Unset the checkbox for Automatic_task_subscription.
     self.toggleCheckBox("xpath", "Automatic_task_subscription")
  
-    #Enter School Name.
+    #Enter school Name.
     self.writeTextField("xpath", "School_name")   
 
-    #Select School Country.
+    #Select school country.
     self.setDropDownList("School_country")
    
-    #Enter Expected Graduation. 
+    #Enter expected graduation. 
     self.writeTextField("xpath", "Expected_graduation")
 
-    #Enter Grade.  
+    #Enter grade.  
     self.writeTextField("xpath", "Grade")
 
     #Submit.

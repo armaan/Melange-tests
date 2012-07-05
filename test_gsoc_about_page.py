@@ -22,16 +22,18 @@ class AboutPageTest(FunctionalTestCase):
   def setUp(self):
     self.init()
     self.setup()
+
+  def testAboutPage(self):
+    #Load test data.
     self.getParameters(self.Data_source, "GSOC_About_Test")
 
-  def test_About_Page(self):
     #Test Url, Change it according to your local dev environment.
-    self.Browser.get(self.obj_id['Url'])
+    self.Browser.get(self.obj_id["Url"])
 
     #Check for the correct browser title.
     self.assertIn("Google Summer of Code", self.Browser.title)
 
-    #Click on About Page.
+    #Click on About page.
     self.clickOn("xpath", "About")
 
     #Check for the browser title.

@@ -22,11 +22,13 @@ class SearchPageTest(FunctionalTestCase):
   def setUp(self):
     self.init()
     self.setup()
+
+  def test_Search_Page(self):
+    #Load test data.
     self.getParameters(self.Data_source, "GSOC_Search_Test")
 
-  def test_Search_Page(self): 
     #Go to the url where melange is hosted.
-    self.Browser.get(self.obj_id['Url'])
+    self.Browser.get(self.obj_id["Url"])
 
     #Click on Search in the menu.
     self.clickOn("xpath", "Search")

@@ -14,39 +14,39 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-""" This test case checks links and text present on GCI About Page.
-"""
-
 from melange_functional_actions import FunctionalTestCase
 
 class GCIAboutPageTest(FunctionalTestCase):
-  
+  """ This test case checks links and text present on GCI About Page.
+  """
   def setUp(self):
     self.init()
     self.setup()
+
+  def testGCIAbout_Page(self):
+    #Load test data.
     self.getParameters(self.Data_source, "GCI_About_Test")
 
-  def test_GCI_About_Page(self):
     #Test Url, Change it according to your local dev environment.
-    self.Browser.get(self.obj_id['Url'])
+    self.Browser.get(self.obj_id["Url"])
 
     #Check for the correct browser title.
     self.assertIn("Google Code-In", self.Browser.title)
 
-    #Click on About Page.
+    #Click on About page.
     self.clickOn("xpath", "About")
 
-    #Assery browser title.
+    #Assert browser title.
     self.wait(5)
     self.assertIn("About Google Code-In", self.Browser.title)
 
     #Assert message on About GCI page.
     self.assertText("About_GCI")
 
-    #Assert Link "contest announcement list".
+    #Assert link "contest announcement list".
     self.assertLink("contest announcement list")
 
-    #Assert Link "Google Open Source Blog".
+    #Assert link "Google Open Source Blog".
     self.assertLink("Google Open Source Blog")
 
   def tearDown(self):
