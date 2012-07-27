@@ -17,14 +17,13 @@
 from melange_functional_actions import FunctionalTestCase
 
 class GCIDashboardTest(FunctionalTestCase):
-  """ GCI Dasboard: This test script test all the functionality
-  provided to a GCI student from Dashboard Page.
+  """This test script test the functionality of GCI Dashboard Page.
   """
   def setUp(self):
     self.init()
     self.setup()  
      
-  def testGCIDashboard(self):
+  def testGCITasks(self):
     #Load test data.
     self.getParameters(self.Data_source, "GCI_Dashboard_Test")
 
@@ -209,6 +208,24 @@ class GCIDashboardTest(FunctionalTestCase):
     #Click ok.
     self.wait(3)
     self.clickOn("xpath", "OK")
+
+  def testGCIDashboardRequests(self):
+    #Load test data.
+    self.getParameters(self.Data_source, "GCI_Dashboard_Test")
+
+    #Test url, change it according to your local dev environment.
+    self.Browser.get(self.obj_id["Url"])
+
+    #Clink on login on GCI menu.
+    self.clickOn("xpath", "Login_link")
+
+    #Test env asks for email id, enter email and click on login.
+    self.wait(5) 
+    self.loginOnLocalhost()
+    self.wait(3)
+    #For melange app on appengine.
+    #self.wait(3) 
+    #self.loginByGoogleAccount() 
 
     #Go back to dashboard.
     self.wait(3)

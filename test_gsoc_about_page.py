@@ -16,7 +16,7 @@
 
 from melange_functional_actions import FunctionalTestCase
 
-class AboutPageTest(FunctionalTestCase):
+class GSoCAboutPageTest(FunctionalTestCase):
   """ This test case test the functionality of GSoC About Page.
   """  
   def setUp(self):

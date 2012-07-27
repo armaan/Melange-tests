@@ -24,7 +24,7 @@ class GsocDashboardTest(FunctionalTestCase):
     self.init()
     self.setup()    
      
-  def testForGsocDashboard(self):
+  def testGsocDashboardProposal(self):
     #Load test data.
     self.getParameters(self.Data_source, "GSOC_Dashboard")
 
@@ -213,6 +213,23 @@ class GsocDashboardTest(FunctionalTestCase):
     #Click OK.
     self.wait(3)
     self.clickOn("xpath", "Proposal_OK_button")
+
+  def testGsocDashboardTodo(self):
+    #Load test data.
+    self.getParameters(self.Data_source, "GSOC_Dashboard")
+
+    #Test Url, Change it according to your local dev environment.
+    self.Browser.get(self.obj_id["Url"])
+
+    #Clink login on GSoC menu.
+    self.clickOn("xpath", "Login_link")
+  
+    #For local environment, enter email and click on login.
+    self.wait(3) 
+    self.loginOnLocalhost()
+    #For melange app on appengine.
+    #self.wait(3) 
+    #self.loginByGoogleAccount()
 
     #Go back to dashboard.
     self.wait(3)

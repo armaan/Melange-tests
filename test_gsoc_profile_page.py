@@ -17,13 +17,13 @@
 from melange_functional_actions import FunctionalTestCase
 
 class ProfilePageTest(FunctionalTestCase):
-  """ This test case test the functionality of GSoC Profile Page.
+  """ This test script test the functionality of GSoC Profile Page.
   """
   def setUp(self):
     self.init()
     self.setup()
     
-  def testProfileNoRegisteredUser(self):
+  def testGSoCProfileNoRegisteredUser(self):
     #Load test data.
     self.getParameters(self.Data_source, "GSOC_Profile_test")
 
@@ -212,7 +212,7 @@ class ProfilePageTest(FunctionalTestCase):
     #Check if data saved successfully.
     self.checkRegistrationSuccess("Message_from_melange")
 
-  def testProfileRegisteredUser(self):
+  def testGSoCProfileRegisteredUser(self):
     #Load test data.
     self.getParameters(self.Data_source, "GSOC_Profile_test")
 

@@ -24,7 +24,7 @@ class AcceptedOrganisationsTest(FunctionalTestCase):
     self.init()
     self.setup()    
      
-  def testForAcceptedOrgs(self):
+  def testGSoCAcceptedOrganisations(self):
     #Load test data.
     self.getParameters(self.Data_source, "Accepted_Orgs")
 

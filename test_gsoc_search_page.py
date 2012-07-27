@@ -23,7 +23,7 @@ class SearchPageTest(FunctionalTestCase):
     self.init()
     self.setup()
 
-  def test_Search_Page(self):
+  def testGSoCSearch_Page(self):
     #Load test data.
     self.getParameters(self.Data_source, "GSOC_Search_Test")
 

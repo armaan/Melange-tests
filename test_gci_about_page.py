@@ -23,7 +23,7 @@ class GCIAboutPageTest(FunctionalTestCase):
     self.init()
     self.setup()
 
-  def testGCIAbout_Page(self):
+  def testGCIAboutPage(self):
     #Load test data.
     self.getParameters(self.Data_source, "GCI_About_Test")
 
